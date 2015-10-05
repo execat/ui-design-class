@@ -8,21 +8,22 @@ import java.awt.*;
 public class Validator {
     public static boolean minLength(String str, int lim) {
         if (str == null) { return false; }
-        else if (str.isEmpty()) { return false; }
-        else if(str.length() < lim) { return false; }
-        else { return true; }
+        if (str.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     public static boolean maxLength(String str, int lim) {
         if (str == null) { return false; }
-        else if (str.length() > lim) { return false; }
-        else { return true; }
+        if (str.length() > lim) { return false; }
+        return true;
     }
 
     public static boolean exactLength(String str, int lim) {
         if (str == null) { return false; }
-        else if (str.length() != lim) { return false; }
-        else { return true; }
+        if (str.length() != lim) { return false; }
+        return true;
     }
 
     // TODO
