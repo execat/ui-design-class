@@ -6,7 +6,6 @@
 package ui;
 
 import javax.swing.*;
-import javax.xml.soap.Text;
 import java.awt.*;
 
 /**
@@ -50,7 +49,7 @@ public class UI extends javax.swing.JFrame {
         component.setBackground(Color.WHITE);
     }
 
-    private void validateNameField(JTextField field, int limit) {
+    private void validateTextField(JTextField field, int limit) {
         String text = field.getText();
 
         if (!Validator.minLength(text, SHOULD_EXIST)) {
@@ -59,6 +58,16 @@ public class UI extends javax.swing.JFrame {
             setErrorBorder(field);
         } else {
             setNormalBorder(field);
+        }
+    }
+
+    private void validateNonCompulsoryTextField(JTextField field, int limit) {
+        String text = field.getText();
+
+        if (!Validator.maxLength(text, limit)) {
+            setErrorBorder(middleInitialTextField);
+        } else {
+            setNormalBorder(middleInitialTextField);
         }
     }
 
@@ -555,11 +564,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_firstNameTextFieldFocusGained
 
     private void firstNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextFieldFocusLost
-        validateNameField(firstNameTextField, firstNameLimit);
+        validateTextField(firstNameTextField, firstNameLimit);
     }//GEN-LAST:event_firstNameTextFieldFocusLost
 
     private void firstNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_firstNameTextFieldKeyPressed
-        validateNameField(firstNameTextField, firstNameLimit);
+        validateTextField(firstNameTextField, firstNameLimit);
     }//GEN-LAST:event_firstNameTextFieldKeyPressed
 
     private void middleInitialTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_middleInitialTextFieldFocusGained
@@ -567,23 +576,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_middleInitialTextFieldFocusGained
 
     private void middleInitialTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_middleInitialTextFieldFocusLost
-        String field = middleInitialTextField.getText();
-
-        if (!Validator.maxLength(field, middleInitialLimit)) {
-            setErrorBorder(middleInitialTextField);
-        } else {
-            setNormalBorder(middleInitialTextField);
-        }
+        validateNonCompulsoryTextField(middleInitialTextField, middleInitialLimit);
     }//GEN-LAST:event_middleInitialTextFieldFocusLost
 
     private void middleInitialTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_middleInitialTextFieldKeyPressed
-        String field = middleInitialTextField.getText();
-
-        if (!Validator.maxLength(field, middleInitialLimit)) {
-            setErrorBorder(middleInitialTextField);
-        } else {
-            setNormalBorder(middleInitialTextField);
-        }
+        validateNonCompulsoryTextField(middleInitialTextField, middleInitialLimit);
     }//GEN-LAST:event_middleInitialTextFieldKeyPressed
 
     private void lastNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusGained
@@ -591,11 +588,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_lastNameTextFieldFocusGained
 
     private void lastNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusLost
-        validateNameField(lastNameTextField, lastNameLimit);
+        validateTextField(lastNameTextField, lastNameLimit);
     }//GEN-LAST:event_lastNameTextFieldFocusLost
 
     private void lastNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lastNameTextFieldKeyPressed
-        validateNameField(lastNameTextField, lastNameLimit);
+        validateTextField(lastNameTextField, lastNameLimit);
     }//GEN-LAST:event_lastNameTextFieldKeyPressed
 
     private void address1TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address1TextFieldFocusGained
@@ -603,11 +600,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_address1TextFieldFocusGained
 
     private void address1TextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address1TextFieldFocusLost
-        validateNameField(address1TextField, address1Limit);
+        validateTextField(address1TextField, address1Limit);
     }//GEN-LAST:event_address1TextFieldFocusLost
 
     private void address1TextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_address1TextFieldKeyPressed
-        validateNameField(address1TextField, address1Limit);
+        validateTextField(address1TextField, address1Limit);
     }//GEN-LAST:event_address1TextFieldKeyPressed
 
     private void address2TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address2TextFieldFocusGained
@@ -615,11 +612,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_address2TextFieldFocusGained
 
     private void address2TextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address2TextFieldFocusLost
-        validateNameField(address2TextField, address2Limit);
+        validateNonCompulsoryTextField(address2TextField, address2Limit);
     }//GEN-LAST:event_address2TextFieldFocusLost
 
     private void address2TextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_address2TextFieldKeyPressed
-        validateNameField(address2TextField, address2Limit);
+        validateNonCompulsoryTextField(address2TextField, address2Limit);
     }//GEN-LAST:event_address2TextFieldKeyPressed
 
     private void cityTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityTextFieldFocusGained
@@ -627,11 +624,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_cityTextFieldFocusGained
 
     private void cityTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityTextFieldFocusLost
-        validateNameField(cityTextField, cityLimit);
+        validateTextField(cityTextField, cityLimit);
     }//GEN-LAST:event_cityTextFieldFocusLost
 
     private void cityTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cityTextFieldKeyPressed
-        validateNameField(cityTextField, cityLimit);
+        validateTextField(cityTextField, cityLimit);
     }//GEN-LAST:event_cityTextFieldKeyPressed
 
     private void stateTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateTextFieldFocusGained
@@ -639,11 +636,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_stateTextFieldFocusGained
 
     private void stateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateTextFieldFocusLost
-        validateNameField(stateTextField, stateLimit);
+        validateTextField(stateTextField, stateLimit);
     }//GEN-LAST:event_stateTextFieldFocusLost
 
     private void stateTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stateTextFieldKeyPressed
-        validateNameField(stateTextField, stateLimit);
+        validateTextField(stateTextField, stateLimit);
     }//GEN-LAST:event_stateTextFieldKeyPressed
 
     private void zipCodeTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_zipCodeTextFieldFocusGained
@@ -651,11 +648,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_zipCodeTextFieldFocusGained
 
     private void zipCodeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_zipCodeTextFieldFocusLost
-        validateNameField(zipCodeTextField, zipCodeLimit);
+        validateTextField(zipCodeTextField, zipCodeLimit);
     }//GEN-LAST:event_zipCodeTextFieldFocusLost
 
     private void zipCodeTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zipCodeTextFieldKeyPressed
-        validateNameField(zipCodeTextField, zipCodeLimit);
+        validateTextField(zipCodeTextField, zipCodeLimit);
     }//GEN-LAST:event_zipCodeTextFieldKeyPressed
 
     private void phoneNumberTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneNumberTextFieldFocusGained
@@ -663,11 +660,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneNumberTextFieldFocusGained
 
     private void phoneNumberTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneNumberTextFieldFocusLost
-        validateNameField(phoneNumberTextField, phoneNumberLimit);
+        validateTextField(phoneNumberTextField, phoneNumberLimit);
     }//GEN-LAST:event_phoneNumberTextFieldFocusLost
 
     private void phoneNumberTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberTextFieldKeyPressed
-        validateNameField(phoneNumberTextField, phoneNumberLimit);
+        validateTextField(phoneNumberTextField, phoneNumberLimit);
     }//GEN-LAST:event_phoneNumberTextFieldKeyPressed
 
     private void emailAddressTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailAddressTextFieldFocusGained
@@ -675,11 +672,11 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_emailAddressTextFieldFocusGained
 
     private void emailAddressTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailAddressTextFieldFocusLost
-        validateNameField(emailAddressTextField, emailAddressLimit);
+        validateTextField(emailAddressTextField, emailAddressLimit);
     }//GEN-LAST:event_emailAddressTextFieldFocusLost
 
     private void emailAddressTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailAddressTextFieldKeyPressed
-        validateNameField(emailAddressTextField, emailAddressLimit);
+        validateTextField(emailAddressTextField, emailAddressLimit);
     }//GEN-LAST:event_emailAddressTextFieldKeyPressed
 
     private void dateReceivedTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateReceivedTextFieldFocusGained
