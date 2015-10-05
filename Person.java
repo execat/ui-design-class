@@ -214,6 +214,26 @@ class Person {
         this.zipCode.set(zipCode);
     }
 
+    public String getFullName() {
+        StringBuilder str = new StringBuilder();
+        String firstName = getFirstName();
+        String middleInitial = getMiddleInitial();
+        String lastName = getLastName();
+
+        if (!firstName.isEmpty()) {
+            str.append(firstName + " ");
+        }
+
+        if (!middleInitial.isEmpty()) {
+            str.append(middleInitial + " ");
+        }
+
+        if (!lastName.isEmpty()) {
+            str.append(lastName + " ");
+        }
+        return str.toString();
+    }
+
     @Override
     public String toString() {
         return (firstName.get() + separator + middleInitial.get() + separator + lastName.get() + separator + address1.get() +

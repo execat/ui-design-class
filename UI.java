@@ -6,6 +6,8 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.lang.reflect.Array;
@@ -31,8 +33,19 @@ public class UI extends javax.swing.JFrame {
     private static int emailAddressLimit = 60;
     private static int SHOULD_EXIST = 1;
 
+    private static boolean firstNameBoolean = false;
+    private static boolean middleInitialBoolean = true;
+    private static boolean lastNameBoolean = false;
+    private static boolean address1Boolean = false;
+    private static boolean address2Boolean = true;
+    private static boolean cityBoolean = false;
+    private static boolean stateBoolean = false;
+    private static boolean zipCodeBoolean = false;
+    private static boolean phoneNumberBoolean = false;
+    private static boolean emailAddressBoolean = false;
+    private static boolean dateReceivedBoolean = false;
+
     private ArrayList<Person> data;
-    private Person currentPerson;
 
     /**
      * Creates new form Frame
@@ -40,7 +53,8 @@ public class UI extends javax.swing.JFrame {
     public UI() {
         initComponents();
         data = Controller.fetchAll();
-        currentPerson = new Person();
+        repopulateTable(data);
+        checkSavability();
     }
 
     private void setStatusBar(String str) {
@@ -55,15 +69,34 @@ public class UI extends javax.swing.JFrame {
         int i = 0;
         for (Person current : data) {
             i = i + 1;
-            String[] insert = {String.valueOf(i), current.getFirstName(), current.getPhone()};
+            String[] insert = {String.valueOf(i), current.getFullName(), current.getPhone()};
             tableModel.addRow(insert);
         }
         dataTable.setModel(tableModel);
         tableModel.fireTableDataChanged();
     }
 
+    private void editPerson(int index) {
+        data = Controller.fetchAll();
+        Person person = data.get(index);
+
+        firstNameTextField.setText(person.getFirstName());
+        middleInitialTextField.setText(person.getMiddleInitial());
+        lastNameTextField.setText(person.getLastName());
+        address1TextField.setText(person.getAddress1());
+        address2TextField.setText(person.getAddress2());
+        cityTextField.setText(person.getCity());
+        stateTextField.setText(person.getState());
+        zipCodeTextField.setText(person.getZipCode());
+        phoneNumberTextField.setText(person.getPhone());
+        emailAddressTextField.setText(person.getEmail());
+        dateReceivedTextField.setText(person.getDate());
+        proofOfPurchaseCheckbox.setSelected(person.getProofOfPurchase().equals("true"));
+    }
+
     private void resetForm() {
         data = Controller.fetchAll();
+        setStatusBar("Ready to take a new entry");
         repopulateTable(data);
 
         firstNameTextField.setText("");
@@ -88,37 +121,54 @@ public class UI extends javax.swing.JFrame {
         component.setBackground(Color.WHITE);
     }
 
-    private void validateTextField(JTextField field, int limit) {
+    private boolean validateTextField(JTextField field, int limit) {
         String text = field.getText();
 
         if (!Validator.minLength(text, SHOULD_EXIST)) {
             setErrorBorder(field);
+            return false;
         } else if (!Validator.maxLength(text, limit)) {
             setErrorBorder(field);
+            return false;
         } else {
             setNormalBorder(field);
+            return true;
         }
     }
 
-    private void validateNonCompulsoryTextField(JTextField field, int limit) {
+    private boolean validateNonCompulsoryTextField(JTextField field, int limit) {
         String text = field.getText();
 
         if (!Validator.maxLength(text, limit)) {
             setErrorBorder(field);
+            return false;
         } else {
             setNormalBorder(field);
+            return true;
         }
     }
 
-
-    private void validateDate(JTextField field) {
+    // Nothing here yet
+    private boolean validateDate(JTextField field) {
         String text = field.getText();
 
         if (!Validator.date(text)) {
             setErrorBorder(field);
+            return false;
         } else {
             setNormalBorder(field);
+            return true;
         }
+    }
+
+    private void checkSavability() {
+        boolean savable = firstNameBoolean && middleInitialBoolean && lastNameBoolean &&
+                address1Boolean && address2Boolean && cityBoolean && stateBoolean && zipCodeBoolean &&
+                phoneNumberBoolean && emailAddressBoolean && dateReceivedBoolean;
+        System.out.println(firstNameBoolean + " " + middleInitialBoolean + " " + lastNameBoolean + " " +
+                address1Boolean + " " + address2Boolean + " " + cityBoolean + " " + stateBoolean + " " +
+                zipCodeBoolean + " " + phoneNumberBoolean + " " + emailAddressBoolean + " " + dateReceivedBoolean);
+        saveAndNew.setEnabled(savable);
     }
 
     /**
@@ -127,279 +177,287 @@ public class UI extends javax.swing.JFrame {
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-        // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-        private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-                header = new javax.swing.JLabel();
-                jPanel1 = new javax.swing.JPanel();
-                jScrollPane1 = new javax.swing.JScrollPane();
-                dataTable = new javax.swing.JTable();
-                jPanel2 = new javax.swing.JPanel();
-                firstNameLabel = new javax.swing.JLabel();
-                firstNameTextField = new javax.swing.JTextField();
-                middleInitialLabel = new javax.swing.JLabel();
-                middleInitialTextField = new javax.swing.JTextField();
-                lastNameTextField = new javax.swing.JTextField();
-                lastNameLabel = new javax.swing.JLabel();
-                address1Label = new javax.swing.JLabel();
-                address1TextField = new javax.swing.JTextField();
-                address2Label = new javax.swing.JLabel();
-                address2TextField = new javax.swing.JTextField();
-                cityLabel = new javax.swing.JLabel();
-                cityTextField = new javax.swing.JTextField();
-                stateLabel = new javax.swing.JLabel();
-                stateTextField = new javax.swing.JTextField();
-                zipCodeLabel = new javax.swing.JLabel();
-                zipCodeTextField = new javax.swing.JTextField();
-                phoneNumberLabel = new javax.swing.JLabel();
-                emailAddressLabel = new javax.swing.JLabel();
-                dateReceivedLabel = new javax.swing.JLabel();
-                phoneNumberTextField = new javax.swing.JTextField();
-                emailAddressTextField = new javax.swing.JTextField();
-                dateReceivedTextField = new javax.swing.JTextField();
-                proofOfPurchaseCheckbox = new javax.swing.JCheckBox();
-                delete = new javax.swing.JButton();
-                saveAndNew = new javax.swing.JButton();
-                exit = new javax.swing.JButton();
-                statusBar = new javax.swing.JLabel();
+        header = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        dataTable = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        firstNameLabel = new javax.swing.JLabel();
+        firstNameTextField = new javax.swing.JTextField();
+        middleInitialLabel = new javax.swing.JLabel();
+        middleInitialTextField = new javax.swing.JTextField();
+        lastNameTextField = new javax.swing.JTextField();
+        lastNameLabel = new javax.swing.JLabel();
+        address1Label = new javax.swing.JLabel();
+        address1TextField = new javax.swing.JTextField();
+        address2Label = new javax.swing.JLabel();
+        address2TextField = new javax.swing.JTextField();
+        cityLabel = new javax.swing.JLabel();
+        cityTextField = new javax.swing.JTextField();
+        stateLabel = new javax.swing.JLabel();
+        stateTextField = new javax.swing.JTextField();
+        zipCodeLabel = new javax.swing.JLabel();
+        zipCodeTextField = new javax.swing.JTextField();
+        phoneNumberLabel = new javax.swing.JLabel();
+        emailAddressLabel = new javax.swing.JLabel();
+        dateReceivedLabel = new javax.swing.JLabel();
+        phoneNumberTextField = new javax.swing.JTextField();
+        emailAddressTextField = new javax.swing.JTextField();
+        dateReceivedTextField = new javax.swing.JTextField();
+        proofOfPurchaseCheckbox = new javax.swing.JCheckBox();
+        delete = new javax.swing.JButton();
+        saveAndNew = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
+        statusBar = new javax.swing.JLabel();
 
-                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-                header.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-                header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                header.setText("Rebate Central");
+        header.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        header.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        header.setText("Rebate Central");
 
-                dataTable.setAutoCreateRowSorter(true);
-                dataTable.setModel(new javax.swing.table.DefaultTableModel(
-                        new Object [][] {
-                                {null, null, null},
-                                {null, null, null}
-                        },
-                        new String [] {
-                                "#", "Name", "Phone Number"
-                        }
-                ) {
-                        Class[] types = new Class [] {
-                                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-                        };
-                        boolean[] canEdit = new boolean [] {
-                                false, false, false
-                        };
-
-                        public Class getColumnClass(int columnIndex) {
-                                return types [columnIndex];
-                        }
-
-                        public boolean isCellEditable(int rowIndex, int columnIndex) {
-                                return canEdit [columnIndex];
-                        }
-                });
-                dataTable.setColumnSelectionAllowed(true);
-                jScrollPane1.setViewportView(dataTable);
-                dataTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-                if (dataTable.getColumnModel().getColumnCount() > 0) {
-                        dataTable.getColumnModel().getColumn(0).setMinWidth(20);
-                        dataTable.getColumnModel().getColumn(0).setPreferredWidth(20);
-                        dataTable.getColumnModel().getColumn(0).setMaxWidth(30);
+        dataTable.setAutoCreateRowSorter(true);
+        dataTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                        {null, null, null},
+                        {null, null, null}
+                },
+                new String [] {
+                        "#", "Name", "Phone Number"
                 }
+        ) {
+            Class[] types = new Class [] {
+                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                    false, false, false
+            };
 
-                jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-                firstNameLabel.setText("First Name");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        dataTable.setColumnSelectionAllowed(true);
+        jScrollPane1.setViewportView(dataTable);
+        dataTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        if (dataTable.getColumnModel().getColumnCount() > 0) {
+            dataTable.getColumnModel().getColumn(0).setMinWidth(20);
+            dataTable.getColumnModel().getColumn(0).setPreferredWidth(20);
+            dataTable.getColumnModel().getColumn(0).setMaxWidth(30);
+        }
+        dataTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                if (dataTable.getSelectedRow() >= 0) {
+                    int index = Integer.parseInt(dataTable.getValueAt(dataTable.getSelectedRow(), 0).toString()) - 1;
+                    editPerson(index);
+                }
+            }
+        });
 
-                firstNameTextField.setActionCommand("<Not Set>");
-                firstNameTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-                firstNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                firstNameTextFieldFocusGained(evt);
-                        }
-                });
-                firstNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                firstNameTextFieldKeyPressed(evt);
-                        }
-                });
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-                middleInitialLabel.setText("Middle Initial");
+        firstNameLabel.setText("First Name");
 
-                middleInitialTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                middleInitialTextFieldFocusGained(evt);
-                        }
-                });
-                middleInitialTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                middleInitialTextFieldKeyReleased(evt);
-                        }
-                });
+        firstNameTextField.setActionCommand("<Not Set>");
+        firstNameTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        firstNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                firstNameTextFieldFocusGained(evt);
+            }
+        });
+        firstNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                firstNameTextFieldKeyPressed(evt);
+            }
+        });
 
-                lastNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                lastNameTextFieldFocusGained(evt);
-                        }
-                });
-                lastNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                lastNameTextFieldKeyReleased(evt);
-                        }
-                });
+        middleInitialLabel.setText("Middle Initial");
 
-                lastNameLabel.setText("Last Name");
+        middleInitialTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                middleInitialTextFieldFocusGained(evt);
+            }
+        });
+        middleInitialTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                middleInitialTextFieldKeyReleased(evt);
+            }
+        });
 
-                address1Label.setText("Address 1");
+        lastNameTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                lastNameTextFieldFocusGained(evt);
+            }
+        });
+        lastNameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lastNameTextFieldKeyReleased(evt);
+            }
+        });
 
-                address1TextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                address1TextFieldFocusGained(evt);
-                        }
-                });
-                address1TextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                address1TextFieldKeyReleased(evt);
-                        }
-                });
+        lastNameLabel.setText("Last Name");
 
-                address2Label.setText("Address 2");
+        address1Label.setText("Address 1");
 
-                address2TextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                address2TextFieldFocusGained(evt);
-                        }
-                });
-                address2TextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                address2TextFieldKeyReleased(evt);
-                        }
-                });
+        address1TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                address1TextFieldFocusGained(evt);
+            }
+        });
+        address1TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                address1TextFieldKeyReleased(evt);
+            }
+        });
 
-                cityLabel.setText("City");
+        address2Label.setText("Address 2");
 
-                cityTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                cityTextFieldFocusGained(evt);
-                        }
-                });
-                cityTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                cityTextFieldKeyReleased(evt);
-                        }
-                });
+        address2TextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                address2TextFieldFocusGained(evt);
+            }
+        });
+        address2TextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                address2TextFieldKeyReleased(evt);
+            }
+        });
 
-                stateLabel.setText("State");
+        cityLabel.setText("City");
 
-                stateTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                stateTextFieldFocusGained(evt);
-                        }
-                });
-                stateTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                stateTextFieldKeyReleased(evt);
-                        }
-                });
+        cityTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cityTextFieldFocusGained(evt);
+            }
+        });
+        cityTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cityTextFieldKeyReleased(evt);
+            }
+        });
 
-                zipCodeLabel.setText("Zip Code");
+        stateLabel.setText("State");
 
-                zipCodeTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                zipCodeTextFieldFocusGained(evt);
-                        }
-                });
-                zipCodeTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                zipCodeTextFieldKeyReleased(evt);
-                        }
-                });
+        stateTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                stateTextFieldFocusGained(evt);
+            }
+        });
+        stateTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                stateTextFieldKeyReleased(evt);
+            }
+        });
 
-                phoneNumberLabel.setText("Phone Number");
+        zipCodeLabel.setText("Zip Code");
 
-                emailAddressLabel.setText("Email Address");
+        zipCodeTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                zipCodeTextFieldFocusGained(evt);
+            }
+        });
+        zipCodeTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                zipCodeTextFieldKeyReleased(evt);
+            }
+        });
 
-                dateReceivedLabel.setText("Date Received");
+        phoneNumberLabel.setText("Phone Number");
 
-                phoneNumberTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                phoneNumberTextFieldFocusGained(evt);
-                        }
-                });
-                phoneNumberTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                phoneNumberTextFieldKeyReleased(evt);
-                        }
-                });
+        emailAddressLabel.setText("Email Address");
 
-                emailAddressTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                emailAddressTextFieldFocusGained(evt);
-                        }
-                });
-                emailAddressTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                emailAddressTextFieldKeyReleased(evt);
-                        }
-                });
+        dateReceivedLabel.setText("Date Received");
 
-                dateReceivedTextField.setColumns(10);
-                dateReceivedTextField.setText("MM/DD/YY");
-                dateReceivedTextField.setToolTipText("");
-                dateReceivedTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                dateReceivedTextFieldFocusGained(evt);
-                        }
-                });
-                dateReceivedTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyReleased(java.awt.event.KeyEvent evt) {
-                                dateReceivedTextFieldKeyReleased(evt);
-                        }
-                });
+        phoneNumberTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                phoneNumberTextFieldFocusGained(evt);
+            }
+        });
+        phoneNumberTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                phoneNumberTextFieldKeyReleased(evt);
+            }
+        });
 
-                proofOfPurchaseCheckbox.setText("Proof of Purchase");
-                proofOfPurchaseCheckbox.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                proofOfPurchaseCheckboxFocusGained(evt);
-                        }
-                });
+        emailAddressTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailAddressTextFieldFocusGained(evt);
+            }
+        });
+        emailAddressTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailAddressTextFieldKeyReleased(evt);
+            }
+        });
 
-                delete.setText("Delete");
-                delete.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                deleteFocusGained(evt);
-                        }
-                });
-                delete.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                deleteActionPerformed(evt);
-                        }
-                });
+        dateReceivedTextField.setColumns(10);
+        dateReceivedTextField.setText("MM/DD/YY");
+        dateReceivedTextField.setToolTipText("");
+        dateReceivedTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                dateReceivedTextFieldFocusGained(evt);
+            }
+        });
+        dateReceivedTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dateReceivedTextFieldKeyReleased(evt);
+            }
+        });
 
-                saveAndNew.setText("Save and New");
-                saveAndNew.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                saveAndNewFocusGained(evt);
-                        }
-                });
-                saveAndNew.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                saveAndNewActionPerformed(evt);
-                        }
-                });
+        proofOfPurchaseCheckbox.setText("Proof of Purchase");
+        proofOfPurchaseCheckbox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                proofOfPurchaseCheckboxFocusGained(evt);
+            }
+        });
 
-                exit.setText("Exit");
-                exit.addFocusListener(new java.awt.event.FocusAdapter() {
-                        public void focusGained(java.awt.event.FocusEvent evt) {
-                                exitFocusGained(evt);
-                        }
-                });
-                exit.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                exitActionPerformed(evt);
-                        }
-                });
+        delete.setText("Delete");
+        delete.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                deleteFocusGained(evt);
+            }
+        });
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
-                javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-                jPanel2.setLayout(jPanel2Layout);
-                jPanel2Layout.setHorizontalGroup(
-                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        saveAndNew.setText("Save and New");
+        saveAndNew.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                saveAndNewFocusGained(evt);
+            }
+        });
+        saveAndNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveAndNewActionPerformed(evt);
+            }
+        });
+
+        exit.setText("Exit");
+        exit.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                exitFocusGained(evt);
+            }
+        });
+        exit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -440,9 +498,9 @@ public class UI extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap())
-                );
-                jPanel2Layout.setVerticalGroup(
-                        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        );
+        jPanel2Layout.setVerticalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -496,15 +554,15 @@ public class UI extends javax.swing.JFrame {
                                         .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
-                );
+        );
 
-                statusBar.setText("Status Label");
-                statusBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        statusBar.setText("Status Label");
+        statusBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-                javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-                jPanel1.setLayout(jPanel1Layout);
-                jPanel1Layout.setHorizontalGroup(
-                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -513,9 +571,9 @@ public class UI extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())
-                );
-                jPanel1Layout.setVerticalGroup(
-                        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        );
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jScrollPane1)
@@ -523,30 +581,30 @@ public class UI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(statusBar)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
+        );
 
-                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-                getContentPane().setLayout(layout);
-                layout.setHorizontalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
-                );
-                layout.setVerticalGroup(
-                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(header)
                                 .addGap(25, 25, 25)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
+        );
 
-                pack();
-        }// </editor-fold>//GEN-END:initComponents
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         System.exit(0);
@@ -572,6 +630,9 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_saveAndNewActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        Controller.delete(dataTable.getSelectedRows());
+        data = Controller.fetchAll();
+        repopulateTable(data);
     }//GEN-LAST:event_deleteActionPerformed
 
     private void firstNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextFieldFocusGained
@@ -579,7 +640,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_firstNameTextFieldFocusGained
 
     private void firstNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameTextFieldFocusLost
-        validateTextField(firstNameTextField, firstNameLimit);
     }//GEN-LAST:event_firstNameTextFieldFocusLost
 
     private void middleInitialTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_middleInitialTextFieldFocusGained
@@ -587,7 +647,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_middleInitialTextFieldFocusGained
 
     private void middleInitialTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_middleInitialTextFieldFocusLost
-        validateNonCompulsoryTextField(middleInitialTextField, middleInitialLimit);
     }//GEN-LAST:event_middleInitialTextFieldFocusLost
 
     private void lastNameTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusGained
@@ -595,7 +654,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_lastNameTextFieldFocusGained
 
     private void lastNameTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameTextFieldFocusLost
-        validateTextField(lastNameTextField, lastNameLimit);
     }//GEN-LAST:event_lastNameTextFieldFocusLost
 
     private void address1TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address1TextFieldFocusGained
@@ -603,7 +661,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_address1TextFieldFocusGained
 
     private void address1TextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address1TextFieldFocusLost
-        validateTextField(address1TextField, address1Limit);
     }//GEN-LAST:event_address1TextFieldFocusLost
 
     private void address2TextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address2TextFieldFocusGained
@@ -611,7 +668,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_address2TextFieldFocusGained
 
     private void address2TextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_address2TextFieldFocusLost
-        validateNonCompulsoryTextField(address2TextField, address2Limit);
     }//GEN-LAST:event_address2TextFieldFocusLost
 
     private void cityTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityTextFieldFocusGained
@@ -619,7 +675,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_cityTextFieldFocusGained
 
     private void cityTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cityTextFieldFocusLost
-        validateTextField(cityTextField, cityLimit);
     }//GEN-LAST:event_cityTextFieldFocusLost
 
     private void stateTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateTextFieldFocusGained
@@ -627,7 +682,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_stateTextFieldFocusGained
 
     private void stateTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_stateTextFieldFocusLost
-        validateTextField(stateTextField, stateLimit);
     }//GEN-LAST:event_stateTextFieldFocusLost
 
     private void zipCodeTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_zipCodeTextFieldFocusGained
@@ -635,7 +689,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_zipCodeTextFieldFocusGained
 
     private void zipCodeTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_zipCodeTextFieldFocusLost
-        validateTextField(zipCodeTextField, zipCodeLimit);
     }//GEN-LAST:event_zipCodeTextFieldFocusLost
 
     private void phoneNumberTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneNumberTextFieldFocusGained
@@ -643,7 +696,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_phoneNumberTextFieldFocusGained
 
     private void phoneNumberTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_phoneNumberTextFieldFocusLost
-        validateTextField(phoneNumberTextField, phoneNumberLimit);
     }//GEN-LAST:event_phoneNumberTextFieldFocusLost
 
     private void emailAddressTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailAddressTextFieldFocusGained
@@ -651,7 +703,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_emailAddressTextFieldFocusGained
 
     private void emailAddressTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailAddressTextFieldFocusLost
-        validateTextField(emailAddressTextField, emailAddressLimit);
     }//GEN-LAST:event_emailAddressTextFieldFocusLost
 
     private void dateReceivedTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateReceivedTextFieldFocusGained
@@ -662,7 +713,6 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_dateReceivedTextFieldFocusGained
 
     private void dateReceivedTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateReceivedTextFieldFocusLost
-        validateDate(dateReceivedTextField);
     }//GEN-LAST:event_dateReceivedTextFieldFocusLost
 
     private void proofOfPurchaseCheckboxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_proofOfPurchaseCheckboxFocusGained
@@ -682,47 +732,58 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_exitFocusGained
 
     private void firstNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_firstNameTextFieldKeyPressed
-        validateTextField(firstNameTextField, firstNameLimit);
+        firstNameBoolean = validateTextField(firstNameTextField, firstNameLimit);
+        checkSavability();
     }//GEN-LAST:event_firstNameTextFieldKeyPressed
 
     private void middleInitialTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_middleInitialTextFieldKeyReleased
-        validateNonCompulsoryTextField(middleInitialTextField, middleInitialLimit);
+        middleInitialBoolean = validateNonCompulsoryTextField(middleInitialTextField, middleInitialLimit);
+        checkSavability();
     }//GEN-LAST:event_middleInitialTextFieldKeyReleased
 
     private void lastNameTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lastNameTextFieldKeyReleased
-        validateTextField(lastNameTextField, lastNameLimit);
+        lastNameBoolean = validateTextField(lastNameTextField, lastNameLimit);
+        checkSavability();
     }//GEN-LAST:event_lastNameTextFieldKeyReleased
 
     private void address1TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_address1TextFieldKeyReleased
-        validateTextField(address1TextField, address1Limit);
+        address1Boolean = validateTextField(address1TextField, address1Limit);
+        checkSavability();
     }//GEN-LAST:event_address1TextFieldKeyReleased
 
     private void address2TextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_address2TextFieldKeyReleased
-        validateNonCompulsoryTextField(address2TextField, address2Limit);
+        address2Boolean = validateNonCompulsoryTextField(address2TextField, address2Limit);
+        checkSavability();
     }//GEN-LAST:event_address2TextFieldKeyReleased
 
     private void cityTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cityTextFieldKeyReleased
-        validateTextField(cityTextField, cityLimit);
+        cityBoolean = validateTextField(cityTextField, cityLimit);
+        checkSavability();
     }//GEN-LAST:event_cityTextFieldKeyReleased
 
     private void stateTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stateTextFieldKeyReleased
-        validateTextField(stateTextField, stateLimit);
+        stateBoolean = validateTextField(stateTextField, stateLimit);
+        checkSavability();
     }//GEN-LAST:event_stateTextFieldKeyReleased
 
     private void zipCodeTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_zipCodeTextFieldKeyReleased
-        validateTextField(zipCodeTextField, zipCodeLimit);
+        zipCodeBoolean = validateTextField(zipCodeTextField, zipCodeLimit);
+        checkSavability();
     }//GEN-LAST:event_zipCodeTextFieldKeyReleased
 
     private void phoneNumberTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberTextFieldKeyReleased
-        validateTextField(phoneNumberTextField, phoneNumberLimit);
+        phoneNumberBoolean = validateTextField(phoneNumberTextField, phoneNumberLimit);
+        checkSavability();
     }//GEN-LAST:event_phoneNumberTextFieldKeyReleased
 
     private void emailAddressTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailAddressTextFieldKeyReleased
-        validateTextField(emailAddressTextField, emailAddressLimit);
+        emailAddressBoolean = validateTextField(emailAddressTextField, emailAddressLimit);
+        checkSavability();
     }//GEN-LAST:event_emailAddressTextFieldKeyReleased
 
     private void dateReceivedTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dateReceivedTextFieldKeyReleased
-        // validateTextField(dateReceivedTextField, dateReceivedLimit);
+        dateReceivedBoolean = validateDate(dateReceivedTextField);
+        checkSavability();
     }//GEN-LAST:event_dateReceivedTextFieldKeyReleased
 
     /**
@@ -761,38 +822,38 @@ public class UI extends javax.swing.JFrame {
         });
     }
 
-        // Variables declaration - do not modify//GEN-BEGIN:variables
-        private javax.swing.JLabel address1Label;
-        private javax.swing.JTextField address1TextField;
-        private javax.swing.JLabel address2Label;
-        private javax.swing.JTextField address2TextField;
-        private javax.swing.JLabel cityLabel;
-        private javax.swing.JTextField cityTextField;
-        private javax.swing.JTable dataTable;
-        private javax.swing.JLabel dateReceivedLabel;
-        private javax.swing.JTextField dateReceivedTextField;
-        private javax.swing.JButton delete;
-        private javax.swing.JLabel emailAddressLabel;
-        private javax.swing.JTextField emailAddressTextField;
-        private javax.swing.JButton exit;
-        private javax.swing.JLabel firstNameLabel;
-        private javax.swing.JTextField firstNameTextField;
-        private javax.swing.JLabel header;
-        private javax.swing.JPanel jPanel1;
-        private javax.swing.JPanel jPanel2;
-        private javax.swing.JScrollPane jScrollPane1;
-        private javax.swing.JLabel lastNameLabel;
-        private javax.swing.JTextField lastNameTextField;
-        private javax.swing.JLabel middleInitialLabel;
-        private javax.swing.JTextField middleInitialTextField;
-        private javax.swing.JLabel phoneNumberLabel;
-        private javax.swing.JTextField phoneNumberTextField;
-        private javax.swing.JCheckBox proofOfPurchaseCheckbox;
-        private javax.swing.JButton saveAndNew;
-        private javax.swing.JLabel stateLabel;
-        private javax.swing.JTextField stateTextField;
-        private javax.swing.JLabel statusBar;
-        private javax.swing.JLabel zipCodeLabel;
-        private javax.swing.JTextField zipCodeTextField;
-        // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel address1Label;
+    private javax.swing.JTextField address1TextField;
+    private javax.swing.JLabel address2Label;
+    private javax.swing.JTextField address2TextField;
+    private javax.swing.JLabel cityLabel;
+    private javax.swing.JTextField cityTextField;
+    private javax.swing.JTable dataTable;
+    private javax.swing.JLabel dateReceivedLabel;
+    private javax.swing.JTextField dateReceivedTextField;
+    private javax.swing.JButton delete;
+    private javax.swing.JLabel emailAddressLabel;
+    private javax.swing.JTextField emailAddressTextField;
+    private javax.swing.JButton exit;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JTextField firstNameTextField;
+    private javax.swing.JLabel header;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JTextField lastNameTextField;
+    private javax.swing.JLabel middleInitialLabel;
+    private javax.swing.JTextField middleInitialTextField;
+    private javax.swing.JLabel phoneNumberLabel;
+    private javax.swing.JTextField phoneNumberTextField;
+    private javax.swing.JCheckBox proofOfPurchaseCheckbox;
+    private javax.swing.JButton saveAndNew;
+    private javax.swing.JLabel stateLabel;
+    private javax.swing.JTextField stateTextField;
+    private javax.swing.JLabel statusBar;
+    private javax.swing.JLabel zipCodeLabel;
+    private javax.swing.JTextField zipCodeTextField;
+    // End of variables declaration//GEN-END:variables
 }

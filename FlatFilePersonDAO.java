@@ -57,6 +57,8 @@ public class FlatFilePersonDAO implements PersonDAO {
         dataFile = new File(dataPath);
         if (!dataFile.exists()) {
             createFile(dataFile);
+        } else {
+            data = fetchAll();
         }
 
         backupPath = basePath + "backup.txt";
