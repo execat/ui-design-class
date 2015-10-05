@@ -29,13 +29,4 @@ public class Validator {
         if (str.length() != lim) { return false; }
         return true;
     }
-
-    // TODO
-    public static boolean existence(Component component) {
-        return true;
-    }
-
-    private static boolean existenceTextfield(TextField textField) {
-        return true;
-    }
 }
