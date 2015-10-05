@@ -20,6 +20,10 @@ public class Validator {
         return true;
     }
 
+    public static boolean date(String str) {
+        return true;
+    }
+
     public static boolean exactLength(String str, int lim) {
         if (str == null) { return false; }
         if (str.length() != lim) { return false; }

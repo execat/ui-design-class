@@ -276,6 +276,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="firstNameTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="firstNameTextFieldKeyPressed"/>
               </Events>
             </Component>
@@ -286,11 +287,13 @@
             </Component>
             <Component class="javax.swing.JTextField" name="middleInitialTextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="middleInitialTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="middleInitialTextFieldKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="lastNameTextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="lastNameTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="lastNameTextFieldKeyReleased"/>
               </Events>
             </Component>
@@ -306,6 +309,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="address1TextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="address1TextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="address1TextFieldKeyReleased"/>
               </Events>
             </Component>
@@ -316,6 +320,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="address2TextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="address2TextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="address2TextFieldKeyReleased"/>
               </Events>
             </Component>
@@ -326,6 +331,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="cityTextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="cityTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cityTextFieldKeyReleased"/>
               </Events>
             </Component>
@@ -336,6 +342,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="stateTextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="stateTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="stateTextFieldKeyReleased"/>
               </Events>
             </Component>
@@ -346,6 +353,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="zipCodeTextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="zipCodeTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="zipCodeTextFieldKeyReleased"/>
               </Events>
             </Component>
@@ -366,11 +374,13 @@
             </Component>
             <Component class="javax.swing.JTextField" name="phoneNumberTextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="phoneNumberTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="phoneNumberTextFieldKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="emailAddressTextField">
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="emailAddressTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="emailAddressTextFieldKeyReleased"/>
               </Events>
             </Component>
@@ -381,6 +391,7 @@
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dateReceivedTextFieldFocusGained"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dateReceivedTextFieldKeyReleased"/>
               </Events>
             </Component>
@@ -388,6 +399,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Proof of Purchase"/>
               </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="proofOfPurchaseCheckboxFocusGained"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="delete">
               <Properties>

@@ -5,17 +5,14 @@
  */
 package ui;
 
-import javax.swing.JComponent;
-
 /**
  *
  * @author atm
  */
 public class Controller {
-	
-	
-	public void validate(JComponent c) {
-		return;
-	}
+
+    
+
+
 	
 }
