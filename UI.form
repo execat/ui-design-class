@@ -26,7 +26,7 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabel1" max="32767" attributes="0"/>
+                  <Component id="header" max="32767" attributes="0"/>
                   <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -37,7 +37,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <Component id="header" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="jPanel1" max="32767" attributes="0"/>
           </Group>
@@ -45,7 +45,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="header">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Lucida Grande" size="24" style="0"/>
@@ -275,6 +275,9 @@
                   <Color id="Text Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="firstNameTextFieldKeyPressed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="middleInitialLabel">
               <Properties>
@@ -283,10 +286,13 @@
             </Component>
             <Component class="javax.swing.JTextField" name="middleInitialTextField">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="middleInitialTextFieldActionPerformed"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="middleInitialTextFieldKeyReleased"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="lastNameTextField">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="lastNameTextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lastNameLabel">
               <Properties>
@@ -299,6 +305,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="address1TextField">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="address1TextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="address2Label">
               <Properties>
@@ -306,6 +315,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="address2TextField">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="address2TextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="cityLabel">
               <Properties>
@@ -313,6 +325,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="cityTextField">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cityTextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="stateLabel">
               <Properties>
@@ -320,6 +335,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="stateTextField">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="stateTextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="zipCodeLabel">
               <Properties>
@@ -327,6 +345,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="zipCodeTextField">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="zipCodeTextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="phoneNumberLabel">
               <Properties>
@@ -344,8 +365,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="phoneNumberTextField">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="phoneNumberTextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="emailAddressTextField">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="emailAddressTextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="dateReceivedTextField">
               <Properties>
@@ -353,6 +380,9 @@
                 <Property name="text" type="java.lang.String" value="MM/DD/YY"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="dateReceivedTextFieldKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="proofOfPurchaseCheckbox">
               <Properties>
