@@ -33,17 +33,17 @@ public class UI extends javax.swing.JFrame {
     private static int emailAddressLimit = 60;
     private static int SHOULD_EXIST = 1;
 
-    private static boolean firstNameBoolean = false;
-    private static boolean middleInitialBoolean = true;
-    private static boolean lastNameBoolean = false;
-    private static boolean address1Boolean = false;
-    private static boolean address2Boolean = true;
-    private static boolean cityBoolean = false;
-    private static boolean stateBoolean = false;
-    private static boolean zipCodeBoolean = false;
-    private static boolean phoneNumberBoolean = false;
-    private static boolean emailAddressBoolean = false;
-    private static boolean dateReceivedBoolean = false;
+    private static boolean firstNameBoolean;
+    private static boolean middleInitialBoolean;
+    private static boolean lastNameBoolean;
+    private static boolean address1Boolean;
+    private static boolean address2Boolean;
+    private static boolean cityBoolean;
+    private static boolean stateBoolean;
+    private static boolean zipCodeBoolean;
+    private static boolean phoneNumberBoolean;
+    private static boolean emailAddressBoolean;
+    private static boolean dateReceivedBoolean;
 
     private ArrayList<Person> data;
 
@@ -54,11 +54,40 @@ public class UI extends javax.swing.JFrame {
         initComponents();
         data = Controller.fetchAll();
         repopulateTable(data);
+        repopulateBooleans();
         checkSavability();
     }
 
     private void setStatusBar(String str) {
         statusBar.setText(str);
+    }
+
+    private void repopulateBooleans() {
+        firstNameBoolean = false;
+        middleInitialBoolean = true;
+        lastNameBoolean = false;
+        address1Boolean = false;
+        address2Boolean = true;
+        cityBoolean = false;
+        stateBoolean = false;
+        zipCodeBoolean = false;
+        phoneNumberBoolean = false;
+        emailAddressBoolean = false;
+        dateReceivedBoolean = false;
+    }
+
+    private void resetColors() {
+        setNormalBorder(firstNameTextField);
+        setNormalBorder(middleInitialTextField);
+        setNormalBorder(lastNameTextField);
+        setNormalBorder(address1TextField);
+        setNormalBorder(address2TextField);
+        setNormalBorder(cityTextField);
+        setNormalBorder(stateTextField);
+        setNormalBorder(zipCodeTextField);
+        setNormalBorder(phoneNumberTextField);
+        setNormalBorder(emailAddressTextField);
+        setNormalBorder(dateReceivedTextField);
     }
 
     private void repopulateTable(ArrayList<Person> data) {
@@ -98,6 +127,8 @@ public class UI extends javax.swing.JFrame {
         data = Controller.fetchAll();
         setStatusBar("Ready to take a new entry");
         repopulateTable(data);
+        repopulateBooleans();
+        resetColors();
 
         firstNameTextField.setText("");
         middleInitialTextField.setText("");
@@ -165,9 +196,6 @@ public class UI extends javax.swing.JFrame {
         boolean savable = firstNameBoolean && middleInitialBoolean && lastNameBoolean &&
                 address1Boolean && address2Boolean && cityBoolean && stateBoolean && zipCodeBoolean &&
                 phoneNumberBoolean && emailAddressBoolean && dateReceivedBoolean;
-        System.out.println(firstNameBoolean + " " + middleInitialBoolean + " " + lastNameBoolean + " " +
-                address1Boolean + " " + address2Boolean + " " + cityBoolean + " " + stateBoolean + " " +
-                zipCodeBoolean + " " + phoneNumberBoolean + " " + emailAddressBoolean + " " + dateReceivedBoolean);
         saveAndNew.setEnabled(savable);
     }
 
@@ -208,10 +236,10 @@ public class UI extends javax.swing.JFrame {
         emailAddressTextField = new javax.swing.JTextField();
         dateReceivedTextField = new javax.swing.JTextField();
         proofOfPurchaseCheckbox = new javax.swing.JCheckBox();
-        delete = new javax.swing.JButton();
         saveAndNew = new javax.swing.JButton();
-        exit = new javax.swing.JButton();
+        clear = new javax.swing.JButton();
         statusBar = new javax.swing.JLabel();
+        delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -252,14 +280,6 @@ public class UI extends javax.swing.JFrame {
             dataTable.getColumnModel().getColumn(0).setPreferredWidth(20);
             dataTable.getColumnModel().getColumn(0).setMaxWidth(30);
         }
-        dataTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                if (dataTable.getSelectedRow() >= 0) {
-                    int index = Integer.parseInt(dataTable.getValueAt(dataTable.getSelectedRow(), 0).toString()) - 1;
-                    editPerson(index);
-                }
-            }
-        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -418,18 +438,6 @@ public class UI extends javax.swing.JFrame {
             }
         });
 
-        delete.setText("Delete");
-        delete.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                deleteFocusGained(evt);
-            }
-        });
-        delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteActionPerformed(evt);
-            }
-        });
-
         saveAndNew.setText("Save and New");
         saveAndNew.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -442,15 +450,15 @@ public class UI extends javax.swing.JFrame {
             }
         });
 
-        exit.setText("Exit");
-        exit.addFocusListener(new java.awt.event.FocusAdapter() {
+        clear.setText("Clear");
+        clear.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                exitFocusGained(evt);
+                clearFocusGained(evt);
             }
         });
-        exit.addActionListener(new java.awt.event.ActionListener() {
+        clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
+                clearActionPerformed(evt);
             }
         });
 
@@ -491,12 +499,10 @@ public class UI extends javax.swing.JFrame {
                                                                 .addComponent(proofOfPurchaseCheckbox)
                                                                 .addGap(0, 197, Short.MAX_VALUE))))
                                         .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(saveAndNew)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -551,34 +557,47 @@ public class UI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(saveAndNew, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
         );
 
         statusBar.setText("Status Label");
         statusBar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        delete.setText("Delete");
+        delete.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                deleteFocusGained(evt);
+            }
+        });
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+                        .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jScrollPane1)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(statusBar)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -606,9 +625,9 @@ public class UI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_exitActionPerformed
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        resetForm();
+    }//GEN-LAST:event_clearActionPerformed
 
     private void saveAndNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAndNewActionPerformed
         String firstName = firstNameTextField.getText();
@@ -720,16 +739,16 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_proofOfPurchaseCheckboxFocusGained
 
     private void deleteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_deleteFocusGained
-        setStatusBar("Delete the entry");
+        setStatusBar("Delete the selected entries");
     }//GEN-LAST:event_deleteFocusGained
 
     private void saveAndNewFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saveAndNewFocusGained
         setStatusBar("Save the entry and go to a new entry");
     }//GEN-LAST:event_saveAndNewFocusGained
 
-    private void exitFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_exitFocusGained
-        setStatusBar("Exit the application");
-    }//GEN-LAST:event_exitFocusGained
+    private void clearFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_clearFocusGained
+        setStatusBar("Clear all the fields");
+    }//GEN-LAST:event_clearFocusGained
 
     private void firstNameTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_firstNameTextFieldKeyPressed
         firstNameBoolean = validateTextField(firstNameTextField, firstNameLimit);
@@ -829,13 +848,13 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JTextField address2TextField;
     private javax.swing.JLabel cityLabel;
     private javax.swing.JTextField cityTextField;
+    private javax.swing.JButton clear;
     private javax.swing.JTable dataTable;
     private javax.swing.JLabel dateReceivedLabel;
     private javax.swing.JTextField dateReceivedTextField;
     private javax.swing.JButton delete;
     private javax.swing.JLabel emailAddressLabel;
     private javax.swing.JTextField emailAddressTextField;
-    private javax.swing.JButton exit;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextField;
     private javax.swing.JLabel header;
