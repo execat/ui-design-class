@@ -5,10 +5,20 @@
  */
 package ui;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author atm
  */
 public class Controller {
+    static FlatFilePersonDAO dao = new FlatFilePersonDAO();
 
+    public static Person saveAndNew(Person p) {
+        return dao.addPerson(p);
+    }
+
+    public static ArrayList<Person> fetchAll() {
+        return dao.fetchAll();
+    }
 }

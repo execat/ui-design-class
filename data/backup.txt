@@ -1,0 +1,1 @@
+"firstName", "middleInitial", "lastName", "address1", "address2", "city", "state", "zipCode", "email", "phone", "proofOfPurchase", "date"

@@ -6,7 +6,10 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  *
@@ -28,15 +31,53 @@ public class UI extends javax.swing.JFrame {
     private static int emailAddressLimit = 60;
     private static int SHOULD_EXIST = 1;
 
+    private ArrayList<Person> data;
+    private Person currentPerson;
+
     /**
      * Creates new form Frame
      */
     public UI() {
         initComponents();
+        data = Controller.fetchAll();
+        currentPerson = new Person();
     }
 
     private void setStatusBar(String str) {
         statusBar.setText(str);
+    }
+
+    private void repopulateTable(ArrayList<Person> data) {
+        DefaultTableModel tableModel = (DefaultTableModel) dataTable.getModel();
+        tableModel.setRowCount(0);
+
+        ArrayList<Person> list = new ArrayList<Person>();
+        int i = 0;
+        for (Person current : data) {
+            i = i + 1;
+            String[] insert = {String.valueOf(i), current.getFirstName(), current.getPhone()};
+            tableModel.addRow(insert);
+        }
+        dataTable.setModel(tableModel);
+        tableModel.fireTableDataChanged();
+    }
+
+    private void resetForm() {
+        data = Controller.fetchAll();
+        repopulateTable(data);
+
+        firstNameTextField.setText("");
+        middleInitialTextField.setText("");
+        lastNameTextField.setText("");
+        address1TextField.setText("");
+        address2TextField.setText("");
+        cityTextField.setText("");
+        stateTextField.setText("");
+        zipCodeTextField.setText("");
+        phoneNumberTextField.setText("");
+        emailAddressTextField.setText("");
+        dateReceivedTextField.setText("");
+        proofOfPurchaseCheckbox.setSelected(false);
     }
 
     private void setErrorBorder(JComponent component) {
@@ -522,7 +563,12 @@ public class UI extends javax.swing.JFrame {
         String state = stateTextField.getText();
         String phoneNumber = phoneNumberTextField.getText();
         String emailAddress = emailAddressTextField.getText();
-        String 
+        String proofOfPurchase = proofOfPurchaseCheckbox.isSelected() ? "true" : "false";
+        String date = dateReceivedTextField.getText();
+
+        Person p = new Person(firstName, middleInitial, lastName, address1, address2, city, state, zipCode, emailAddress, phoneNumber, proofOfPurchase, date);
+        Controller.saveAndNew(p);
+        resetForm();
     }//GEN-LAST:event_saveAndNewActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
