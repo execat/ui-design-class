@@ -1,26 +1,84 @@
 package robotinterface;
 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
 public class RobotInterface extends javax.swing.JFrame {
 
 	/**
 	 * Creates new form RobotInterface
 	 */
 	public RobotInterface() {
-		initComponents();
+        initComponents();
         initShortcuts();
-	}
+
+    }
 
     private void initShortcuts() {
-        addKeyListener(new KeyAdapter() {
-            public void keyPressed(KeyEvent ke) {  // handler
-                if(ke.getKeyCode() == ke.VK_ESCAPE) {
-                    System.out.println("escaped ?");
-                    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE); // trying to close
-                } else {
-                    System.out.println("not escaped");
-                }
+        MouseEvent fakeEvent = new MouseEvent(new JFrame(), 1, 1, 1, 1, 1, 1, 1, 1, true, 1);
+
+        // Foward
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "Move forward");
+        getRootPane().getActionMap().put("Move forward", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                forward.doClick();
+                forward.requestFocus();
+                forwardMouseClicked(fakeEvent);
             }
         });
+
+        // Backward
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "Move backward");
+        getRootPane().getActionMap().put("Move backward", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                backward.doClick();
+                backward.requestFocus();
+                backwardMouseClicked(fakeEvent);
+            }
+        });
+
+        // Left
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "Move left");
+        getRootPane().getActionMap().put("Move left", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                left.doClick();
+                left.requestFocus();
+                leftMouseClicked(fakeEvent);
+            }
+        });
+
+        // Right
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "Move right");
+        getRootPane().getActionMap().put("Move right", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                right.doClick();
+                right.requestFocus();
+                rightMouseClicked(fakeEvent);
+            }
+        });
+
+        // PlayPause
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "Play Pause");
+        getRootPane().getActionMap().put("Play Pause", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                playPause.doClick();
+                playPause.requestFocus();
+                playPauseMouseClicked(fakeEvent);
+            }
+        });
+
+
     }
 
 	/**
@@ -280,7 +338,8 @@ public class RobotInterface extends javax.swing.JFrame {
 
                 debugger.setEditable(false);
                 debugger.setColumns(20);
-                debugger.setRows(4);
+                debugger.setRows(1);
+                debugger.setTabSize(4);
                 jScrollPane1.setViewportView(debugger);
 
                 javax.swing.GroupLayout debuggingConsolePanelLayout = new javax.swing.GroupLayout(debuggingConsolePanel);
@@ -337,23 +396,23 @@ public class RobotInterface extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void forwardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forwardMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Moving foward");
         }//GEN-LAST:event_forwardMouseClicked
 
         private void backwardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backwardMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Moving backward");
         }//GEN-LAST:event_backwardMouseClicked
 
         private void leftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Moving left");
         }//GEN-LAST:event_leftMouseClicked
 
         private void rightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rightMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Moving right");
         }//GEN-LAST:event_rightMouseClicked
 
         private void playPauseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playPauseMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Play pause");
         }//GEN-LAST:event_playPauseMouseClicked
 
         private void upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseClicked
@@ -380,14 +439,14 @@ public class RobotInterface extends javax.swing.JFrame {
 	 * @param args the command line arguments
 	 */
 	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
+		/* Set the Basic look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        /* If Basic (introduced in Java SE 6) is not available, stay with the default look and feel.
 		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
 		 */
 		try {
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
+				if ("Basic".equals(info.getName())) {
 					javax.swing.UIManager.setLookAndFeel(info.getClassName());
 					break;
 				}
@@ -437,5 +496,6 @@ public class RobotInterface extends javax.swing.JFrame {
         private javax.swing.JLabel temperatureLabelFarentheit;
         private javax.swing.JPanel temperaturePanel;
         private javax.swing.JButton up;
-        // End of variables declaration//GEN-END:variables
+
+    // End of variables declaration//GEN-END:variables
 }

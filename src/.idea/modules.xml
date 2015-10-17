@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/RobotInterface.iml" filepath="$PROJECT_DIR$/.idea/RobotInterface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RobotInterface.iml" filepath="$PROJECT_DIR$/RobotInterface.iml" />
     </modules>
   </component>
 </project>
