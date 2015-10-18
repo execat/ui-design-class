@@ -16,61 +16,61 @@ public class RobotController implements Controller {
     @Override
     public State moveRobotForward() {
         model.moveRobotForward();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State moveRobotBackward() {
         model.moveRobotBackward();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State moveRobotLeft() {
         model.moveRobotLeft();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State moveRobotRight() {
         model.moveRobotRight();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State playPause() {
         model.playPause();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State moveArmUp() {
         model.moveArmUp();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State moveArmDown() {
         model.moveArmDown();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State grabReleaseArm() {
         model.grabReleaseArm();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State getCamera() {
         model.fetchCamera();
-        return model.getState();
+        return getState();
     }
 
     @Override
     public State getTemperature() {
         model.fetchTemperature();
-        return model.getState();
+        return getState();
     }
 
     @Override
