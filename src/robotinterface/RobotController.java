@@ -14,27 +14,63 @@ public class RobotController implements Controller {
     }
 
     @Override
-    public void directions(JButton clickedButton) {
+    public State moveRobotForward() {
+        model.moveRobotForward();
+        return model.getState();
     }
 
     @Override
-    public void armMovement(JButton clickedButton) {
-
+    public State moveRobotBackward() {
+        model.moveRobotBackward();
+        return model.getState();
     }
 
     @Override
-    public void armGrabRelease(JButton clickedButton) {
-
+    public State moveRobotLeft() {
+        model.moveRobotLeft();
+        return model.getState();
     }
 
     @Override
-    public void fetchCamera(Canvas canvas) {
-
+    public State moveRobotRight() {
+        model.moveRobotRight();
+        return model.getState();
     }
 
     @Override
-    public void fetchTemperature(JLabel celsius, JLabel farenheit) {
+    public State playPause() {
+        model.playPause();
+        return model.getState();
+    }
 
+    @Override
+    public State moveArmUp() {
+        model.moveArmUp();
+        return model.getState();
+    }
+
+    @Override
+    public State moveArmDown() {
+        model.moveArmDown();
+        return model.getState();
+    }
+
+    @Override
+    public State grabReleaseArm() {
+        model.grabReleaseArm();
+        return model.getState();
+    }
+
+    @Override
+    public State fetchCamera() {
+        model.fetchCamera();
+        return model.getState();
+    }
+
+    @Override
+    public State fetchTemperature() {
+        model.fetchTemperature();
+        return model.getState();
     }
 
     @Override

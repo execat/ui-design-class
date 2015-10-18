@@ -27,8 +27,8 @@ public class RobotInterface extends javax.swing.JFrame {
 
         // Foward
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
-                put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "Move forward");
-        getRootPane().getActionMap().put("Move forward", new AbstractAction()
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "Move forwardLabel");
+        getRootPane().getActionMap().put("Move forwardLabel", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(forward);
@@ -38,8 +38,8 @@ public class RobotInterface extends javax.swing.JFrame {
 
         // Backward
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
-                put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "Move backward");
-        getRootPane().getActionMap().put("Move backward", new AbstractAction()
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "Move backwardLabel");
+        getRootPane().getActionMap().put("Move backwardLabel", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(backward);
@@ -49,8 +49,8 @@ public class RobotInterface extends javax.swing.JFrame {
 
         // Left
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
-                put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "Move left");
-        getRootPane().getActionMap().put("Move left", new AbstractAction()
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "Move leftLabel");
+        getRootPane().getActionMap().put("Move leftLabel", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(left);
@@ -60,8 +60,8 @@ public class RobotInterface extends javax.swing.JFrame {
 
         // Right
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
-                put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "Move right");
-        getRootPane().getActionMap().put("Move right", new AbstractAction() {
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "Move rightLabel");
+        getRootPane().getActionMap().put("Move rightLabel", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(right);
                 rightMouseClicked(fakeEvent);
@@ -79,10 +79,10 @@ public class RobotInterface extends javax.swing.JFrame {
             }
         });
 
-        // Arm up
+        // Arm upLabel
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
-                put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "Arm up");
-        getRootPane().getActionMap().put("Arm up", new AbstractAction()
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "Arm upLabel");
+        getRootPane().getActionMap().put("Arm upLabel", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(up);
@@ -90,10 +90,10 @@ public class RobotInterface extends javax.swing.JFrame {
             }
         });
 
-        // Arm down
+        // Arm downLabel
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
-                put(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.SHIFT_DOWN_MASK), "Arm down");
-        getRootPane().getActionMap().put("Arm down", new AbstractAction()
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.SHIFT_DOWN_MASK), "Arm downLabel");
+        getRootPane().getActionMap().put("Arm downLabel", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(down);
@@ -112,10 +112,10 @@ public class RobotInterface extends javax.swing.JFrame {
             }
         });
 
-        // Capture camera
+        // Capture cameraLabel
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
-                put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "Capture camera");
-        getRootPane().getActionMap().put("Capture camera", new AbstractAction()
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "Capture cameraLabel");
+        getRootPane().getActionMap().put("Capture cameraLabel", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(fetchCamera);
@@ -125,8 +125,8 @@ public class RobotInterface extends javax.swing.JFrame {
 
         // Arm grab/release
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
-                put(KeyStroke.getKeyStroke(KeyEvent.VK_T, 0), "Fetch temperature");
-        getRootPane().getActionMap().put("Fetch temperature", new AbstractAction()
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_T, 0), "Fetch temperatureLabel");
+        getRootPane().getActionMap().put("Fetch temperatureLabel", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(fetchTemperature);
@@ -395,7 +395,7 @@ public class RobotInterface extends javax.swing.JFrame {
                 debugger.setColumns(20);
                 debugger.setRows(1);
                 debugger.setTabSize(4);
-                debugger.setText("Use the following shortcuts:\n * Arrow keys for direction\n * a/A to lift arm up and down\n * g for grab/release\n * c for camera\n * t for temperature \n\n\nWaiting for command...\n");
+                debugger.setText("");
                 jScrollPane1.setViewportView(debugger);
 
                 javax.swing.GroupLayout debuggingConsolePanelLayout = new javax.swing.GroupLayout(debuggingConsolePanel);
@@ -452,53 +452,53 @@ public class RobotInterface extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void forwardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forwardMouseClicked
-            controller.directions(forward);
+            controller.moveRobotForward();
             System.out.println("Moving foward");
         }//GEN-LAST:event_forwardMouseClicked
 
         private void backwardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backwardMouseClicked
-            controller.directions(backward);
-            System.out.println("Moving backward");
+            controller.moveRobotBackward();
+            System.out.println("Moving backwardLabel");
         }//GEN-LAST:event_backwardMouseClicked
 
         private void leftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftMouseClicked
-            controller.directions(left);
-            System.out.println("Moving left");
+            controller.moveRobotLeft();
+            System.out.println("Moving leftLabel");
         }//GEN-LAST:event_leftMouseClicked
 
         private void rightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rightMouseClicked
-            controller.directions(right);
-            System.out.println("Moving right");
+            controller.moveRobotRight();
+            System.out.println("Moving rightLabel");
         }//GEN-LAST:event_rightMouseClicked
 
         private void playPauseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playPauseMouseClicked
-            controller.directions(playPause);
+            controller.playPause();
             System.out.println("Play pause");
         }//GEN-LAST:event_playPauseMouseClicked
 
         private void upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseClicked
-            controller.armMovement(up);
-            System.out.println("Lifting arm up");
+            controller.moveArmUp();
+            System.out.println("Lifting arm upLabel");
         }//GEN-LAST:event_upMouseClicked
 
         private void downMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downMouseClicked
-            controller.armMovement(down);
-            System.out.println("Lifting arm down");
+            controller.moveArmDown();
+            System.out.println("Lifting arm downLabel");
         }//GEN-LAST:event_downMouseClicked
 
         private void grabReleaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grabReleaseMouseClicked
-            controller.armGrabRelease(grabRelease);
+            controller.grabReleaseArm();
             System.out.println("Executing grab/release");
         }//GEN-LAST:event_grabReleaseMouseClicked
 
         private void fetchCameraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchCameraMouseClicked
-            controller.fetchCamera(cameraCanvas);
-            System.out.println("Fetching camera stream");
+            controller.fetchCamera();
+            System.out.println("Fetching cameraLabel stream");
         }//GEN-LAST:event_fetchCameraMouseClicked
 
         private void fetchTemperatureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchTemperatureMouseClicked
-            controller.fetchTemperature(temperatureLabelCelsius, temperatureLabelFarentheit);
-            System.out.println("Fetching temperature sensor reading");
+            controller.fetchTemperature();
+            System.out.println("Fetching temperatureLabel sensor reading");
         }//GEN-LAST:event_fetchTemperatureMouseClicked
 
 	/**

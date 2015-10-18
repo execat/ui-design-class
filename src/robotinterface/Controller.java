@@ -7,15 +7,19 @@ import java.awt.*;
  * Created by atm on 10/17/15.
  */
 public interface Controller {
-    void directions(JButton clickedButton);
+    State moveRobotForward();
+    State moveRobotBackward();
+    State moveRobotLeft();
+    State moveRobotRight();
+    State playPause();
 
-    void armMovement(JButton clickedButton);
+    State moveArmUp();
+    State moveArmDown();
+    State grabReleaseArm();
 
-    void armGrabRelease(JButton clickedButton);
+    State fetchCamera();
 
-    void fetchCamera(Canvas canvas);
-
-    void fetchTemperature(JLabel celsius, JLabel farenheit);
+    State fetchTemperature();
 
     State fetchState();
 }
