@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class RobotInterface extends javax.swing.JFrame {
+    RobotController controller = new RobotController();
 
 	/**
 	 * Creates new form RobotInterface
@@ -60,8 +61,7 @@ public class RobotInterface extends javax.swing.JFrame {
         // Right
         getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
                 put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "Move right");
-        getRootPane().getActionMap().put("Move right", new AbstractAction()
-        {
+        getRootPane().getActionMap().put("Move right", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 simulateChange(right);
                 rightMouseClicked(fakeEvent);
@@ -79,6 +79,60 @@ public class RobotInterface extends javax.swing.JFrame {
             }
         });
 
+        // Arm up
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), "Arm up");
+        getRootPane().getActionMap().put("Arm up", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                simulateChange(up);
+                upMouseClicked(fakeEvent);
+            }
+        });
+
+        // Arm down
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.SHIFT_DOWN_MASK), "Arm down");
+        getRootPane().getActionMap().put("Arm down", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                simulateChange(down);
+                downMouseClicked(fakeEvent);
+            }
+        });
+
+        // Arm grab/release
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_G, 0), "Grab/release");
+        getRootPane().getActionMap().put("Grab/release", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                simulateChange(grabRelease);
+                grabReleaseMouseClicked(fakeEvent);
+            }
+        });
+
+        // Capture camera
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_C, 0), "Capture camera");
+        getRootPane().getActionMap().put("Capture camera", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                simulateChange(fetchCamera);
+                fetchCameraMouseClicked(fakeEvent);
+            }
+        });
+
+        // Arm grab/release
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).
+                put(KeyStroke.getKeyStroke(KeyEvent.VK_T, 0), "Fetch temperature");
+        getRootPane().getActionMap().put("Fetch temperature", new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                simulateChange(fetchTemperature);
+                fetchTemperatureMouseClicked(fakeEvent);
+            }
+        });
 
     }
 
@@ -125,37 +179,37 @@ public class RobotInterface extends javax.swing.JFrame {
 
                 forward.setText("↑");
                 forward.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                forwardMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        forwardMouseClicked(evt);
+                    }
                 });
 
                 backward.setText("↓");
                 backward.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                backwardMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        backwardMouseClicked(evt);
+                    }
                 });
 
                 left.setText("←");
                 left.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                leftMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        leftMouseClicked(evt);
+                    }
                 });
 
                 right.setText("→");
                 right.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                rightMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        rightMouseClicked(evt);
+                    }
                 });
 
                 playPause.setText("▶/❚❚");
                 playPause.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                playPauseMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        playPauseMouseClicked(evt);
+                    }
                 });
 
                 jProgressBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -164,59 +218,59 @@ public class RobotInterface extends javax.swing.JFrame {
                 movementPanel.setLayout(movementPanelLayout);
                 movementPanelLayout.setHorizontalGroup(
                         movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(movementPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(movementPanelLayout.createSequentialGroup()
-                                                .addComponent(left, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(2, 2, 2)
-                                                .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(backward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(movementPanelLayout.createSequentialGroup()
-                                                                .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(forward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(movementPanelLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(movementPanelLayout.createSequentialGroup()
+                                                        .addComponent(left, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGap(2, 2, 2)
+                                                        .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                .addComponent(backward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGroup(movementPanelLayout.createSequentialGroup()
+                                                                        .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                                .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                                .addComponent(forward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                        .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 movementPanelLayout.setVerticalGroup(
                         movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(movementPanelLayout.createSequentialGroup()
-                                .addComponent(forward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(3, 3, 3)
-                                .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(left, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(backward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(movementPanelLayout.createSequentialGroup()
+                                        .addComponent(forward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(3, 3, 3)
+                                        .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                .addComponent(left, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(playPause, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(backward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 );
 
                 armControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Arm Control"));
 
                 up.setText("⇞");
                 up.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                upMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        upMouseClicked(evt);
+                    }
                 });
 
                 down.setText("⇟");
                 down.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                downMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        downMouseClicked(evt);
+                    }
                 });
 
                 grabRelease.setText("Grab");
                 grabRelease.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                grabReleaseMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        grabReleaseMouseClicked(evt);
+                    }
                 });
 
                 armCanvas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -225,66 +279,66 @@ public class RobotInterface extends javax.swing.JFrame {
                 armControlPanel.setLayout(armControlPanelLayout);
                 armControlPanelLayout.setHorizontalGroup(
                         armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(armControlPanelLayout.createSequentialGroup()
-                                .addGroup(armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(armCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(armControlPanelLayout.createSequentialGroup()
-                                                .addGroup(armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(down, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(up))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(grabRelease)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(armControlPanelLayout.createSequentialGroup()
+                                        .addGroup(armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(armCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(armControlPanelLayout.createSequentialGroup()
+                                                        .addGroup(armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(down, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(up))
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(grabRelease)))
+                                        .addGap(0, 0, Short.MAX_VALUE))
                 );
                 armControlPanelLayout.setVerticalGroup(
                         armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(armControlPanelLayout.createSequentialGroup()
-                                .addGroup(armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(grabRelease, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(armControlPanelLayout.createSequentialGroup()
-                                                .addComponent(up, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(down, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(armCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+                                .addGroup(armControlPanelLayout.createSequentialGroup()
+                                        .addGroup(armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(grabRelease, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(armControlPanelLayout.createSequentialGroup()
+                                                        .addComponent(up, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(down, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(armCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addContainerGap())
                 );
 
                 cameraPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Camera"));
 
                 fetchCamera.setText("Fetch Camera View");
                 fetchCamera.addMouseListener(new java.awt.event.MouseAdapter() {
-                        public void mouseClicked(java.awt.event.MouseEvent evt) {
-                                fetchCameraMouseClicked(evt);
-                        }
+                    public void mouseClicked(java.awt.event.MouseEvent evt) {
+                        fetchCameraMouseClicked(evt);
+                    }
                 });
 
                 javax.swing.GroupLayout cameraPanelLayout = new javax.swing.GroupLayout(cameraPanel);
                 cameraPanel.setLayout(cameraPanelLayout);
                 cameraPanelLayout.setHorizontalGroup(
                         cameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(fetchCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(cameraPanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(cameraCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+                                .addComponent(fetchCamera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(cameraPanelLayout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(cameraCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addContainerGap())
                 );
                 cameraPanelLayout.setVerticalGroup(
                         cameraPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(cameraPanelLayout.createSequentialGroup()
-                                .addComponent(fetchCamera, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cameraCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
+                                .addGroup(cameraPanelLayout.createSequentialGroup()
+                                        .addComponent(fetchCamera, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cameraCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addContainerGap())
                 );
 
                 temperaturePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Temperature"));
 
                 fetchTemperature.setText("Fetch Temperature");
-                fetchTemperature.addKeyListener(new java.awt.event.KeyAdapter() {
-                        public void keyPressed(java.awt.event.KeyEvent evt) {
-                                fetchTemperatureKeyPressed(evt);
-                        }
+                fetchTemperature.addMouseListener(new java.awt.event.MouseAdapter() {
+                    public void keyPressed(java.awt.event.MouseEvent evt) {
+                        fetchTemperatureMouseClicked(evt);
+                    }
                 });
 
                 temperatureLabelCelsius.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -305,34 +359,34 @@ public class RobotInterface extends javax.swing.JFrame {
                 temperaturePanel.setLayout(temperaturePanelLayout);
                 temperaturePanelLayout.setHorizontalGroup(
                         temperaturePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(temperaturePanelLayout.createSequentialGroup()
-                                .addGroup(temperaturePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, temperaturePanelLayout.createSequentialGroup()
-                                                .addComponent(temperatureLabelCelsius, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(tempLabelCelsius))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, temperaturePanelLayout.createSequentialGroup()
-                                                .addComponent(temperatureLabelFarentheit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(tempLabelFarenheit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(114, 114, 114))
-                        .addGroup(temperaturePanelLayout.createSequentialGroup()
-                                .addComponent(fetchTemperature)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(temperaturePanelLayout.createSequentialGroup()
+                                        .addGroup(temperaturePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, temperaturePanelLayout.createSequentialGroup()
+                                                        .addComponent(temperatureLabelCelsius, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(tempLabelCelsius))
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, temperaturePanelLayout.createSequentialGroup()
+                                                        .addComponent(temperatureLabelFarentheit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(tempLabelFarenheit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGap(114, 114, 114))
+                                .addGroup(temperaturePanelLayout.createSequentialGroup()
+                                        .addComponent(fetchTemperature)
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
                 temperaturePanelLayout.setVerticalGroup(
                         temperaturePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(temperaturePanelLayout.createSequentialGroup()
-                                .addComponent(fetchTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(temperaturePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tempLabelCelsius, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                        .addComponent(temperatureLabelCelsius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(temperaturePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(temperatureLabelFarentheit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tempLabelFarenheit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(temperaturePanelLayout.createSequentialGroup()
+                                        .addComponent(fetchTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(temperaturePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(tempLabelCelsius, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                                                .addComponent(temperatureLabelCelsius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(temperaturePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(temperatureLabelFarentheit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(tempLabelFarenheit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
 
                 debuggingConsolePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Debugging Console"));
@@ -341,6 +395,7 @@ public class RobotInterface extends javax.swing.JFrame {
                 debugger.setColumns(20);
                 debugger.setRows(1);
                 debugger.setTabSize(4);
+                debugger.setText("Use the following shortcuts:\n * Arrow keys for direction\n * a/A to lift arm up and down\n * g for grab/release\n * c for camera\n * t for temperature \n\n\nWaiting for command...\n");
                 jScrollPane1.setViewportView(debugger);
 
                 javax.swing.GroupLayout debuggingConsolePanelLayout = new javax.swing.GroupLayout(debuggingConsolePanel);
@@ -397,44 +452,54 @@ public class RobotInterface extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void forwardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forwardMouseClicked
+            controller.directions(forward);
             System.out.println("Moving foward");
         }//GEN-LAST:event_forwardMouseClicked
 
         private void backwardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backwardMouseClicked
+            controller.directions(backward);
             System.out.println("Moving backward");
         }//GEN-LAST:event_backwardMouseClicked
 
         private void leftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftMouseClicked
+            controller.directions(left);
             System.out.println("Moving left");
         }//GEN-LAST:event_leftMouseClicked
 
         private void rightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rightMouseClicked
+            controller.directions(right);
             System.out.println("Moving right");
         }//GEN-LAST:event_rightMouseClicked
 
         private void playPauseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playPauseMouseClicked
+            controller.directions(playPause);
             System.out.println("Play pause");
         }//GEN-LAST:event_playPauseMouseClicked
 
         private void upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseClicked
+            controller.armMovement(up);
             System.out.println("Lifting arm up");
         }//GEN-LAST:event_upMouseClicked
 
         private void downMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downMouseClicked
+            controller.armMovement(down);
             System.out.println("Lifting arm down");
         }//GEN-LAST:event_downMouseClicked
 
         private void grabReleaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grabReleaseMouseClicked
+            controller.armGrabRelease(grabRelease);
             System.out.println("Executing grab/release");
         }//GEN-LAST:event_grabReleaseMouseClicked
 
         private void fetchCameraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchCameraMouseClicked
+            controller.fetchCamera(cameraCanvas);
             System.out.println("Fetching camera stream");
         }//GEN-LAST:event_fetchCameraMouseClicked
 
-        private void fetchTemperatureKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fetchTemperatureKeyPressed
+        private void fetchTemperatureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchTemperatureMouseClicked
+            controller.fetchTemperature(temperatureLabelCelsius, temperatureLabelFarentheit);
             System.out.println("Fetching temperature sensor reading");
-        }//GEN-LAST:event_fetchTemperatureKeyPressed
+        }//GEN-LAST:event_fetchTemperatureMouseClicked
 
 	/**
 	 * @param args the command line arguments

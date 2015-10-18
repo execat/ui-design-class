@@ -26,40 +26,110 @@
       <file leaf-file-name="RobotInterface.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/robotinterface/RobotInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.95637584">
-              <caret line="443" column="13" selection-start-line="443" selection-start-column="13" selection-end-line="443" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.025167786">
+              <caret line="453" column="40" selection-start-line="453" selection-start-column="40" selection-end-line="453" selection-end-column="40" />
               <folding>
-                <element signature="e#2909#2939#0" expanded="true" />
-                <element signature="e#2948#3037#0" expanded="true" />
-                <element signature="method#initComponents#0;class#RobotInterface#0" expanded="false" />
-                <element signature="e#4950#4951#0" expanded="true" />
-                <element signature="e#5034#5035#0" expanded="true" />
-                <element signature="e#5254#5255#0" expanded="true" />
-                <element signature="e#5339#5340#0" expanded="true" />
-                <element signature="e#5551#5552#0" expanded="true" />
-                <element signature="e#5632#5633#0" expanded="true" />
-                <element signature="e#5846#5847#0" expanded="true" />
-                <element signature="e#5928#5929#0" expanded="true" />
-                <element signature="e#6153#6154#0" expanded="true" />
-                <element signature="e#6239#6240#0" expanded="true" />
-                <element signature="e#10610#10611#0" expanded="true" />
-                <element signature="e#10689#10690#0" expanded="true" />
-                <element signature="e#10901#10902#0" expanded="true" />
-                <element signature="e#10982#10983#0" expanded="true" />
-                <element signature="e#11211#11212#0" expanded="true" />
-                <element signature="e#11299#11300#0" expanded="true" />
-                <element signature="e#14633#14634#0" expanded="true" />
-                <element signature="e#14721#14722#0" expanded="true" />
-                <element signature="e#16587#16588#0" expanded="true" />
-                <element signature="e#16678#16679#0" expanded="true" />
-                <element signature="e#29974#29975#0" expanded="true" />
-                <element signature="e#30022#30023#0" expanded="true" />
+                <element signature="e#5163#5193#0" expanded="true" />
+                <element signature="e#5202#5291#0" expanded="true" />
+                <element signature="e#7200#7201#0" expanded="true" />
+                <element signature="e#7272#7273#0" expanded="true" />
+                <element signature="e#7488#7489#0" expanded="true" />
+                <element signature="e#7561#7562#0" expanded="true" />
+                <element signature="e#7769#7770#0" expanded="true" />
+                <element signature="e#7838#7839#0" expanded="true" />
+                <element signature="e#8048#8049#0" expanded="true" />
+                <element signature="e#8118#8119#0" expanded="true" />
+                <element signature="e#8339#8340#0" expanded="true" />
+                <element signature="e#8413#8414#0" expanded="true" />
+                <element signature="e#12996#12997#0" expanded="true" />
+                <element signature="e#13063#13064#0" expanded="true" />
+                <element signature="e#13271#13272#0" expanded="true" />
+                <element signature="e#13340#13341#0" expanded="true" />
+                <element signature="e#13565#13566#0" expanded="true" />
+                <element signature="e#13641#13642#0" expanded="true" />
+                <element signature="e#17131#17132#0" expanded="true" />
+                <element signature="e#17207#17208#0" expanded="true" />
+                <element signature="e#19155#19156#0" expanded="true" />
+                <element signature="e#19236#19237#0" expanded="true" />
+                <element signature="e#33456#33457#0" expanded="true" />
+                <element signature="e#33504#33505#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RobotController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/robotinterface/RobotController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#204#205#0" expanded="true" />
+                <element signature="e#244#245#0" expanded="true" />
+                <element signature="e#675#676#0" expanded="true" />
+                <element signature="e#714#715#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RobotModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/robotinterface/RobotModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding>
+                <element signature="e#141#142#0" expanded="true" />
+                <element signature="e#176#177#0" expanded="true" />
+                <element signature="e#200#201#0" expanded="true" />
+                <element signature="e#228#229#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="State.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/robotinterface/State.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/robotinterface/Model.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/robotinterface/Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -69,6 +139,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/robotinterface/Model.java" />
+        <option value="$PROJECT_DIR$/robotinterface/RobotController.java" />
+        <option value="$PROJECT_DIR$/robotinterface/RobotModel.java" />
+        <option value="$PROJECT_DIR$/robotinterface/State.java" />
+        <option value="$PROJECT_DIR$/robotinterface/Controller.java" />
         <option value="$PROJECT_DIR$/robotinterface/RobotInterface.java" />
       </list>
     </option>
@@ -154,6 +229,7 @@
     <property name="dynamic.classpath" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager" selected="Application.RobotInterface">
     <configuration default="false" name="RobotInterface" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -435,12 +511,12 @@
       <created>1445122212198</created>
       <option name="number" value="Default" />
       <updated>1445122212198</updated>
-      <workItem from="1445122214423" duration="4411000" />
+      <workItem from="1445122214423" duration="9207000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4411000" />
+    <option name="totallyTimeSpent" value="9207000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="1023" extended-state="0" />
@@ -472,6 +548,14 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -484,36 +568,88 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/robotinterface/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robotinterface/State.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robotinterface/RobotModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#141#142#0" expanded="true" />
+            <element signature="e#176#177#0" expanded="true" />
+            <element signature="e#200#201#0" expanded="true" />
+            <element signature="e#228#229#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robotinterface/RobotController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#204#205#0" expanded="true" />
+            <element signature="e#244#245#0" expanded="true" />
+            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#714#715#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robotinterface/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/robotinterface/RobotInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.95637584">
-          <caret line="443" column="13" selection-start-line="443" selection-start-column="13" selection-end-line="443" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.025167786">
+          <caret line="453" column="40" selection-start-line="453" selection-start-column="40" selection-end-line="453" selection-end-column="40" />
           <folding>
-            <element signature="e#2909#2939#0" expanded="true" />
-            <element signature="e#2948#3037#0" expanded="true" />
-            <element signature="method#initComponents#0;class#RobotInterface#0" expanded="false" />
-            <element signature="e#4950#4951#0" expanded="true" />
-            <element signature="e#5034#5035#0" expanded="true" />
-            <element signature="e#5254#5255#0" expanded="true" />
-            <element signature="e#5339#5340#0" expanded="true" />
-            <element signature="e#5551#5552#0" expanded="true" />
-            <element signature="e#5632#5633#0" expanded="true" />
-            <element signature="e#5846#5847#0" expanded="true" />
-            <element signature="e#5928#5929#0" expanded="true" />
-            <element signature="e#6153#6154#0" expanded="true" />
-            <element signature="e#6239#6240#0" expanded="true" />
-            <element signature="e#10610#10611#0" expanded="true" />
-            <element signature="e#10689#10690#0" expanded="true" />
-            <element signature="e#10901#10902#0" expanded="true" />
-            <element signature="e#10982#10983#0" expanded="true" />
-            <element signature="e#11211#11212#0" expanded="true" />
-            <element signature="e#11299#11300#0" expanded="true" />
-            <element signature="e#14633#14634#0" expanded="true" />
-            <element signature="e#14721#14722#0" expanded="true" />
-            <element signature="e#16587#16588#0" expanded="true" />
-            <element signature="e#16678#16679#0" expanded="true" />
-            <element signature="e#29974#29975#0" expanded="true" />
-            <element signature="e#30022#30023#0" expanded="true" />
+            <element signature="e#5163#5193#0" expanded="true" />
+            <element signature="e#5202#5291#0" expanded="true" />
+            <element signature="e#7200#7201#0" expanded="true" />
+            <element signature="e#7272#7273#0" expanded="true" />
+            <element signature="e#7488#7489#0" expanded="true" />
+            <element signature="e#7561#7562#0" expanded="true" />
+            <element signature="e#7769#7770#0" expanded="true" />
+            <element signature="e#7838#7839#0" expanded="true" />
+            <element signature="e#8048#8049#0" expanded="true" />
+            <element signature="e#8118#8119#0" expanded="true" />
+            <element signature="e#8339#8340#0" expanded="true" />
+            <element signature="e#8413#8414#0" expanded="true" />
+            <element signature="e#12996#12997#0" expanded="true" />
+            <element signature="e#13063#13064#0" expanded="true" />
+            <element signature="e#13271#13272#0" expanded="true" />
+            <element signature="e#13340#13341#0" expanded="true" />
+            <element signature="e#13565#13566#0" expanded="true" />
+            <element signature="e#13641#13642#0" expanded="true" />
+            <element signature="e#17131#17132#0" expanded="true" />
+            <element signature="e#17207#17208#0" expanded="true" />
+            <element signature="e#19155#19156#0" expanded="true" />
+            <element signature="e#19236#19237#0" expanded="true" />
+            <element signature="e#33456#33457#0" expanded="true" />
+            <element signature="e#33504#33505#0" expanded="true" />
           </folding>
         </state>
       </provider>
