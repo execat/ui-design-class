@@ -1,6 +1,5 @@
 package robotinterface;
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -492,12 +491,12 @@ public class RobotInterface extends javax.swing.JFrame {
         }//GEN-LAST:event_grabReleaseMouseClicked
 
         private void fetchCameraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchCameraMouseClicked
-            controller.fetchCamera();
+            controller.getCamera();
             System.out.println("Fetching cameraLabel stream");
         }//GEN-LAST:event_fetchCameraMouseClicked
 
         private void fetchTemperatureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchTemperatureMouseClicked
-            controller.fetchTemperature();
+            controller.getTemperature();
             System.out.println("Fetching temperatureLabel sensor reading");
         }//GEN-LAST:event_fetchTemperatureMouseClicked
 

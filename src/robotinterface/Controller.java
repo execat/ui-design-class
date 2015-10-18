@@ -17,9 +17,9 @@ public interface Controller {
     State moveArmDown();
     State grabReleaseArm();
 
-    State fetchCamera();
+    State getCamera();
 
-    State fetchTemperature();
+    State getTemperature();
 
-    State fetchState();
+    State getState();
 }
