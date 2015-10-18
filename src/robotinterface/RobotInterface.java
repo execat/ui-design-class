@@ -15,6 +15,12 @@ public class RobotInterface extends javax.swing.JFrame {
 
     }
 
+    // Used by initShortcuts()
+    private void simulateChange(JButton element) {
+        element.doClick();
+        element.requestFocus();
+    }
+
     private void initShortcuts() {
         MouseEvent fakeEvent = new MouseEvent(new JFrame(), 1, 1, 1, 1, 1, 1, 1, 1, true, 1);
 
@@ -24,8 +30,7 @@ public class RobotInterface extends javax.swing.JFrame {
         getRootPane().getActionMap().put("Move forward", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
-                forward.doClick();
-                forward.requestFocus();
+                simulateChange(forward);
                 forwardMouseClicked(fakeEvent);
             }
         });
@@ -36,8 +41,7 @@ public class RobotInterface extends javax.swing.JFrame {
         getRootPane().getActionMap().put("Move backward", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
-                backward.doClick();
-                backward.requestFocus();
+                simulateChange(backward);
                 backwardMouseClicked(fakeEvent);
             }
         });
@@ -48,8 +52,7 @@ public class RobotInterface extends javax.swing.JFrame {
         getRootPane().getActionMap().put("Move left", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
-                left.doClick();
-                left.requestFocus();
+                simulateChange(left);
                 leftMouseClicked(fakeEvent);
             }
         });
@@ -60,8 +63,7 @@ public class RobotInterface extends javax.swing.JFrame {
         getRootPane().getActionMap().put("Move right", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
-                right.doClick();
-                right.requestFocus();
+                simulateChange(right);
                 rightMouseClicked(fakeEvent);
             }
         });
@@ -72,8 +74,7 @@ public class RobotInterface extends javax.swing.JFrame {
         getRootPane().getActionMap().put("Play Pause", new AbstractAction()
         {
             public void actionPerformed(ActionEvent e) {
-                playPause.doClick();
-                playPause.requestFocus();
+                simulateChange(playPause);
                 playPauseMouseClicked(fakeEvent);
             }
         });
@@ -416,23 +417,23 @@ public class RobotInterface extends javax.swing.JFrame {
         }//GEN-LAST:event_playPauseMouseClicked
 
         private void upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Lifting arm up");
         }//GEN-LAST:event_upMouseClicked
 
         private void downMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Lifting arm down");
         }//GEN-LAST:event_downMouseClicked
 
         private void grabReleaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grabReleaseMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Executing grab/release");
         }//GEN-LAST:event_grabReleaseMouseClicked
 
         private void fetchCameraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchCameraMouseClicked
-                // TODO add your handling code here:
+            System.out.println("Fetching camera stream");
         }//GEN-LAST:event_fetchCameraMouseClicked
 
         private void fetchTemperatureKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fetchTemperatureKeyPressed
-                // TODO add your handling code here:
+            System.out.println("Fetching temperature sensor reading");
         }//GEN-LAST:event_fetchTemperatureKeyPressed
 
 	/**
