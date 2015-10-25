@@ -92,7 +92,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jProgressBar1" max="32767" attributes="0"/>
+                      <Component id="speedBar" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="left" min="-2" pref="75" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -126,7 +126,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="backward" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jProgressBar1" min="-2" max="-2" attributes="0"/>
+                  <Component id="speedBar" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -166,13 +166,13 @@
         </Component>
         <Component class="javax.swing.JButton" name="playPause">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x25b6;/&#x275a;&#x275a;"/>
+            <Property name="text" type="java.lang.String" value="&#x25b6;"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="playPauseMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+        <Component class="javax.swing.JProgressBar" name="speedBar">
           <Properties>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Default Cursor"/>

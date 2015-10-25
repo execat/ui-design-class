@@ -1,5 +1,6 @@
 package robotinterface;
 
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -36,13 +37,17 @@ public class RobotInterface extends javax.swing.JFrame {
         backward.setEnabled(state.backwardActive);
         playPause.setText(state.playPauseLabel);
 
+        speedBar.setMaximum(3);
+        speedBar.setMinimum(0);
+        speedBar.setValue(Math.abs(speed));
+
         up.setEnabled(state.upActive);
         down.setEnabled(state.downActive);
 
         grabRelease.setText(state.grabReleaseLabel);
 
         temperatureLabelCelsius.setText(state.temperatureCelsius);
-        temperatureLabelFarenheit.setText(state.temperatureFarenheit);
+        temperatureLabelFarentheit.setText(state.temperatureFarenheit);
 
         armCanvas = state.armCanvas;
         cameraCanvas = state.cameraCanvas;
@@ -184,7 +189,7 @@ public class RobotInterface extends javax.swing.JFrame {
                 left = new javax.swing.JButton();
                 right = new javax.swing.JButton();
                 playPause = new javax.swing.JButton();
-                jProgressBar1 = new javax.swing.JProgressBar();
+                speedBar = new javax.swing.JProgressBar();
                 armControlPanel = new javax.swing.JPanel();
                 up = new javax.swing.JButton();
                 down = new javax.swing.JButton();
@@ -238,14 +243,14 @@ public class RobotInterface extends javax.swing.JFrame {
                         }
                 });
 
-                playPause.setText("▶/❚❚");
+                playPause.setText("▶");
                 playPause.addMouseListener(new java.awt.event.MouseAdapter() {
                         public void mouseClicked(java.awt.event.MouseEvent evt) {
                                 playPauseMouseClicked(evt);
                         }
                 });
 
-                jProgressBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+                speedBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
                 javax.swing.GroupLayout movementPanelLayout = new javax.swing.GroupLayout(movementPanel);
                 movementPanel.setLayout(movementPanelLayout);
@@ -254,7 +259,7 @@ public class RobotInterface extends javax.swing.JFrame {
                         .addGroup(movementPanelLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(movementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(speedBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(movementPanelLayout.createSequentialGroup()
                                                 .addComponent(left, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(2, 2, 2)
@@ -280,7 +285,7 @@ public class RobotInterface extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(backward, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(speedBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 );
 
                 armControlPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Arm Control"));
@@ -609,12 +614,12 @@ public class RobotInterface extends javax.swing.JFrame {
         private javax.swing.JButton forward;
         private javax.swing.JButton grabRelease;
         private javax.swing.JButton jButton3;
-        private javax.swing.JProgressBar jProgressBar1;
         private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JButton left;
         private javax.swing.JPanel movementPanel;
         private javax.swing.JButton playPause;
         private javax.swing.JButton right;
+        private javax.swing.JProgressBar speedBar;
         private javax.swing.JPanel statusBar;
         private javax.swing.JLabel tempLabelCelsius;
         private javax.swing.JLabel tempLabelFarenheit;

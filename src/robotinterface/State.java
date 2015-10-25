@@ -1,5 +1,6 @@
 package robotinterface;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -9,6 +10,7 @@ import java.awt.image.BufferedImage;
 public class State {
 
     final public Image image = Toolkit.getDefaultToolkit().getImage("image.jpg");
+
     public int speed;
     public String forwardLabel;
     public String backwardLabel;
@@ -17,6 +19,7 @@ public class State {
     final public String leftLabel;
     final public String rightLabel;
     public String playPauseLabel;
+    public JProgressBar speedBar;
 
     final public String upLabel;
     final public String downLabel;
@@ -62,6 +65,8 @@ public class State {
                 backwardLabel = "↓↓↓";
             }
         }
+
+        speedBar.setValue(Math.abs(speed));
 
         // Set playPauseLabel
         if (speed == 0) {
@@ -130,6 +135,7 @@ public class State {
         leftLabel = "←";
         rightLabel = "→";
         playPauseLabel = "▶";
+        speedBar = new JProgressBar(0, 3);
 
         upLabel = "⇞";
         downLabel = "⇟";
