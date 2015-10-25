@@ -110,12 +110,6 @@ public class State {
             upActive = true;
             downActive = true;
         }
-
-        cameraCanvas = new Canvas();
-        cameraCanvas.imageUpdate(image, 1, 0, 0, 1000, 1000);
-
-
-        logger();
     }
 
     private void logger() {
@@ -145,6 +139,7 @@ public class State {
 
         cameraActive = false;
         cameraLabel = "Fetch Camera View";
+        cameraCanvas = new CameraCanvas();
 
         temperatureActive = false;
         temperatureLabel = "Fetch Temperature";

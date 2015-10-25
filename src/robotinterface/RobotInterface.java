@@ -2,6 +2,9 @@ package robotinterface;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class RobotInterface extends javax.swing.JFrame {
@@ -13,7 +16,6 @@ public class RobotInterface extends javax.swing.JFrame {
 	public RobotInterface() {
         initComponents();
         initShortcuts();
-
     }
 
     private void forceRefreshUI(State state) {
@@ -50,7 +52,16 @@ public class RobotInterface extends javax.swing.JFrame {
         temperatureLabelFarentheit.setText(state.temperatureFarenheit);
 
         armCanvas = state.armCanvas;
-        cameraCanvas = state.cameraCanvas;
+
+        if (state.cameraActive) {
+            Image img = null;
+            try {
+                img = ImageIO.read(new File("robotinterface/cat.jpg"));
+                cameraCanvas.getGraphics().drawImage(img, 0, 0, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // Used by initShortcuts()
