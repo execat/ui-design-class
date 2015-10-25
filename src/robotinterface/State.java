@@ -1,10 +1,14 @@
 package robotinterface;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 /**
  * Created by atm on 10/17/15.
  */
 public class State {
 
+    final public Image image = Toolkit.getDefaultToolkit().getImage("image.jpg");
     public int speed;
     public String forwardLabel;
     public String backwardLabel;
@@ -20,6 +24,7 @@ public class State {
     public boolean downActive;
     public int armAngle;
     public ArmState grabReleaseState;
+    public String grabReleaseLabel;
 
     public boolean cameraActive;
     final public String cameraLabel;
@@ -29,6 +34,9 @@ public class State {
     public String temperatureCelsius;
     public String temperatureFarenheit;
     public String debuggerText;
+
+    public Canvas armCanvas;
+    public Canvas cameraCanvas;
 
     void updateState() {
         // Directions
@@ -98,10 +106,14 @@ public class State {
             downActive = true;
         }
 
+        cameraCanvas = new Canvas();
+        cameraCanvas.imageUpdate(image, 1, 0, 0, 1000, 1000);
+
+
         logger();
     }
 
-    void logger() {
+    private void logger() {
         System.out.println("Speed: " + speed + "\n" +
                         "Forward label: " + forwardLabel + " :: Forward active: " + forwardActive + "\n" +
                         "Backward label: " + backwardLabel + " :: Backward active: " + backwardActive + "\n" +
@@ -122,9 +134,8 @@ public class State {
         upLabel = "⇞";
         downLabel = "⇟";
         upActive = true;
-        downActive = false;
-        armAngle = 0;
         grabReleaseState = ArmState.GRAB;
+        grabReleaseLabel = "Grab";
 
         cameraActive = false;
         cameraLabel = "Fetch Camera View";
@@ -133,6 +144,7 @@ public class State {
         temperatureLabel = "Fetch Temperature";
         temperatureCelsius = "NA";
         temperatureFarenheit = "NA";
+
         debuggerText = "Use the following shortcuts:\n " +
                 " * Arrow keys for direction\n" +
                 " * a/A to lift arm upLabel and downLabel\n" +

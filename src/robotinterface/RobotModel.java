@@ -64,8 +64,10 @@ public class RobotModel implements Model {
     public State grabReleaseArm() {
         if (state.grabReleaseState.equals(ArmState.GRAB)) {
             state.grabReleaseState = ArmState.RELEASE;
+            state.grabReleaseLabel = "Release";
         } else if (state.grabReleaseState == ArmState.RELEASE) {
             state.grabReleaseState = ArmState.GRAB;
+            state.grabReleaseLabel = "Grab";
         }
         return getState();
     }

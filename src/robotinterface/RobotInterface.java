@@ -15,6 +15,39 @@ public class RobotInterface extends javax.swing.JFrame {
 
     }
 
+    private void forceRefreshUI(State state) {
+        refreshUI(state);
+
+        left.setText(state.leftLabel);
+        right.setText(state.rightLabel);
+        up.setText(state.upLabel);
+        down.setText(state.downLabel);
+        fetchCamera.setText(state.cameraLabel);
+        fetchTemperature.setText(state.temperatureLabel);
+    }
+
+    private void refreshUI(State state) {
+        int speed = state.speed;
+        int armAngle = state.armAngle;
+
+        forward.setText(state.forwardLabel);
+        forward.setEnabled(state.forwardActive);
+        backward.setText(state.backwardLabel);
+        backward.setEnabled(state.backwardActive);
+        playPause.setText(state.playPauseLabel);
+
+        up.setEnabled(state.upActive);
+        down.setEnabled(state.downActive);
+
+        grabRelease.setText(state.grabReleaseLabel);
+
+        temperatureLabelCelsius.setText(state.temperatureCelsius);
+        temperatureLabelFarenheit.setText(state.temperatureFarenheit);
+
+        armCanvas = state.armCanvas;
+        cameraCanvas = state.cameraCanvas;
+    }
+
     // Used by initShortcuts()
     private void simulateChange(JButton element) {
         element.doClick();
@@ -456,9 +489,9 @@ public class RobotInterface extends javax.swing.JFrame {
                                                         .addComponent(movementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addComponent(armControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(cameraPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(temperaturePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(temperaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(cameraPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(statusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -468,52 +501,62 @@ public class RobotInterface extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void forwardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forwardMouseClicked
-            controller.moveRobotForward();
+            State state = controller.moveRobotForward();
+            refreshUI(state);
             System.out.println("Moving foward");
         }//GEN-LAST:event_forwardMouseClicked
 
         private void backwardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backwardMouseClicked
-            controller.moveRobotBackward();
+            State state = controller.moveRobotBackward();
+            refreshUI(state);
             System.out.println("Moving backwardLabel");
         }//GEN-LAST:event_backwardMouseClicked
 
         private void leftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftMouseClicked
-            controller.moveRobotLeft();
+            State state = controller.moveRobotLeft();
+            refreshUI(state);
             System.out.println("Moving leftLabel");
         }//GEN-LAST:event_leftMouseClicked
 
         private void rightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rightMouseClicked
-            controller.moveRobotRight();
+            State state = controller.moveRobotRight();
+            refreshUI(state);
             System.out.println("Moving rightLabel");
         }//GEN-LAST:event_rightMouseClicked
 
         private void playPauseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playPauseMouseClicked
-            controller.playPause();
+            State state = controller.playPause();
+            refreshUI(state);
             System.out.println("Play pause");
         }//GEN-LAST:event_playPauseMouseClicked
 
         private void upMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_upMouseClicked
-            controller.moveArmUp();
+            State state = controller.moveArmUp();
+            refreshUI(state);
             System.out.println("Lifting arm upLabel");
         }//GEN-LAST:event_upMouseClicked
 
         private void downMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downMouseClicked
-            controller.moveArmDown();
+            State state = controller.moveArmDown();
+            refreshUI(state);
             System.out.println("Lifting arm downLabel");
         }//GEN-LAST:event_downMouseClicked
 
         private void grabReleaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grabReleaseMouseClicked
-            controller.grabReleaseArm();
+            State state = controller.grabReleaseArm();
+            refreshUI(state);
             System.out.println("Executing grab/release");
         }//GEN-LAST:event_grabReleaseMouseClicked
 
         private void fetchCameraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchCameraMouseClicked
-            controller.getCamera();
+            State state = controller.getCamera();
+            refreshUI(state);
             System.out.println("Fetching cameraLabel stream");
         }//GEN-LAST:event_fetchCameraMouseClicked
 
         private void fetchTemperatureMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchTemperatureMouseClicked
-            controller.getTemperature();
+            State state = controller.getTemperature();
+            refreshUI(state);
             System.out.println("Fetching temperatureLabel sensor reading");
         }//GEN-LAST:event_fetchTemperatureMouseClicked
 
