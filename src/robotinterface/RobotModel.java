@@ -1,7 +1,7 @@
 package robotinterface;
 
 /**
- * Created by atm on 10/17/15.
+ * Model class for robot interface
  */
 public class RobotModel implements Model {
 
@@ -11,7 +11,8 @@ public class RobotModel implements Model {
         state = new State();
     }
 
-    State getState() {
+    @Override
+    public State getState() {
         state.updateState();
         return state;
     }

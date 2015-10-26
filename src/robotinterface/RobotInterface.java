@@ -10,6 +10,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * Interface
+ */
 public class RobotInterface extends javax.swing.JFrame {
     RobotController controller = new RobotController();
 
@@ -22,6 +25,10 @@ public class RobotInterface extends javax.swing.JFrame {
         refreshUI(controller.getState());
     }
 
+    /**
+     * Refreshes all the modifyable elements on the frame
+     * @param state
+     */
     private void refreshUI(State state) {
         forward.setText(state.forwardLabel);
         forward.setEnabled(state.forwardActive);
@@ -37,7 +44,7 @@ public class RobotInterface extends javax.swing.JFrame {
         down.setEnabled(state.downActive);
         grabRelease.setText(state.grabReleaseLabel);
         refreshArmCanvas(state.armAngle, state.grabReleaseState);
-        refreshCarCanvas(state);
+        refreshCarCanvas(state.speed, state.turnCount);
 
         temperatureLabelCelsius.setText(state.temperatureCelsius);
         temperatureLabelFarentheit.setText(state.temperatureFarenheit);
@@ -47,6 +54,11 @@ public class RobotInterface extends javax.swing.JFrame {
         statusArea.append(state.appStatus);
     }
 
+    /**
+     * Refreshes the arm canvas
+     * @param angle
+     * @param armState
+     */
     private void refreshArmCanvas(int angle, ArmState armState) {
         Graphics2D g = (Graphics2D)armView.getGraphics();
         g.clearRect(0, 0, 10000, 10000);
@@ -54,6 +66,7 @@ public class RobotInterface extends javax.swing.JFrame {
         int thickness = 2;
         g.setStroke(new BasicStroke(thickness));
 
+        // Hardcoded values
         int x1 = 80, y1 = 80;
         int x2 = 144, y2 = 80;
         int length = x2 - x1;
@@ -79,36 +92,42 @@ public class RobotInterface extends javax.swing.JFrame {
         g.setColor(Color.BLACK);
     }
 
-    private void refreshCarCanvas(State state) {
+    /**
+     * Sets the status of the car on the armView
+     * @param speed
+     * @param turnCount
+     */
+    private void refreshCarCanvas(int speed, int turnCount) {
         Graphics2D g = (Graphics2D)armView.getGraphics();
         Color boxColor = Color.gray;
-        if (state.speed == 0) {
-            boxColor = Color.gray;
-        } else if (state.speed == -1) {
-            boxColor = new Color(255, 174, 169);
-        } else if (state.speed == -2) {
-            boxColor = new Color(255, 97, 93);
-        } else if (state.speed == -3) {
+
+        // Set color of the box
+        if (speed == 0) {
+            boxColor = Color.black;
+        } else if (Math.abs(speed) == 1) {
+            boxColor = new Color(255, 191, 0);
+        } else if (Math.abs(speed) == 2) {
+            boxColor = new Color(255, 127, 0);
+        } else if (Math.abs(speed) == 3) {
             boxColor = new Color(255, 0, 0);
-        } else if (state.speed == 1) {
-            boxColor = new Color(138, 255, 146);
-        } else if (state.speed == 2) {
-            boxColor = new Color(51, 255, 87);
-        } else if (state.speed == 3) {
-            boxColor = new Color(0, 255, 41);
         }
 
         int thickness = 3;
         g.setStroke(new BasicStroke(thickness));
 
+        // Draw a rectangle and tile it accordingly
         Rectangle2D rect = new Rectangle2D.Double(29, 26, 20, 32);
         g.setPaint(boxColor);
-        AffineTransform at = AffineTransform.getRotateInstance(Math.toRadians(10 * state.turnCount), 39, 42);
+        AffineTransform at = AffineTransform.getRotateInstance(Math.toRadians(10 * turnCount), 39, 42);
         Path2D rotatedRect = (Path2D)(at.createTransformedShape(rect));
 
         g.draw(rotatedRect);
     }
 
+    /**
+     * Show the image if boolean is set otherwise don't
+     * @param show
+     */
     private void refreshUICamera(boolean show) {
         if (show) {
             Image img = null;
@@ -129,6 +148,15 @@ public class RobotInterface extends javax.swing.JFrame {
         element.requestFocus();
     }
 
+    /**
+     * Sets up keyboard shortcuts
+     * Use the following shortcuts:
+     *      1. Arrow keys for direction
+     *      2. a/A to lift arm upLabel and downLabel\n" +
+     *      3. g for grab/release
+     *      4. c for cameraLabel
+     *      5. t for temperatureLabel
+     */
     private void initShortcuts() {
         MouseEvent fakeEvent = new MouseEvent(new JFrame(), 1, 1, 1, 1, 1, 1, 1, 1, true, 1);
 

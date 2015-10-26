@@ -1,7 +1,7 @@
 package robotinterface;
 
 /**
- * Created by atm on 10/17/15.
+ * Limits ArmState to GRAB and RELEASE
  */
 public enum ArmState {
     GRAB, RELEASE

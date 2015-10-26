@@ -1,10 +1,7 @@
 package robotinterface;
 
-import javax.swing.*;
-import java.awt.*;
-
 /**
- * Created by atm on 10/17/15.
+ * Controller class for robot interface
  */
 public class RobotController implements Controller {
     RobotModel model;

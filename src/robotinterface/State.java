@@ -3,9 +3,10 @@ package robotinterface;
 import javax.swing.*;
 
 /**
- * Created by atm on 10/17/15.
+ * State manager class
  */
 public class State {
+    // Everything declared as public to avoid writing those many getters and setters
     public int speed;
     public String forwardLabel;
     public String backwardLabel;
@@ -32,9 +33,11 @@ public class State {
     final public String temperatureLabel;
     public String temperatureCelsius;
     public String temperatureFarenheit;
-    public String debuggerText;
     public String appStatus;
 
+    /**
+     * Updating of the state happens here
+     */
     void updateState() {
         // Directions
 
@@ -116,6 +119,10 @@ public class State {
         logger();
     }
 
+    /**
+     * Updation of status bar is complex (and boring)
+     * So it has been cut out
+     */
     private void refreshStatusBar() {
         StringBuilder sb = new StringBuilder();
 
@@ -149,6 +156,9 @@ public class State {
         appStatus = sb.toString();
     }
 
+    /**
+     * Logger for Intellij IDEA console
+     */
     private void logger() {
         System.out.println("Speed: " + speed + "\n" +
                         "Forward label: " + forwardLabel + " :: Forward active: " + forwardActive + "\n" +
@@ -159,6 +169,9 @@ public class State {
         System.out.println("Temperature active: " + temperatureActive);
     }
 
+    /**
+     * Constructor
+     */
     State() {
         speed = 0;
         forwardLabel = "↑";
@@ -183,13 +196,6 @@ public class State {
         temperatureCelsius = "NA";
         temperatureFarenheit = "NA";
 
-        debuggerText = "Use the following shortcuts:\n " +
-                " * Arrow keys for direction\n" +
-                " * a/A to lift arm upLabel and downLabel\n" +
-                " * g for grab/release\n" +
-                " * c for cameraLabel\n" +
-                " * t for temperatureLabel\n\n\n" +
-                "Waiting for command...\n";
         appStatus = "";
     }
 }
