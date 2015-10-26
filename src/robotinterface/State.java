@@ -1,17 +1,11 @@
 package robotinterface;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.Path2D;
-import java.awt.image.BufferedImage;
 
 /**
  * Created by atm on 10/17/15.
  */
 public class State {
-
-    final public Image image = Toolkit.getDefaultToolkit().getImage("image.jpg");
-
     public int speed;
     public String forwardLabel;
     public String backwardLabel;
@@ -144,14 +138,14 @@ public class State {
         }
 
         // Arm
-        String with_or_without = grabReleaseState == ArmState.GRAB ? "something grabbed" : "nothing grabbed";
+        String with_or_without = grabReleaseState == ArmState.GRAB ? "nothing grabbed" : "something grabbed";
         sb.append("arm angle " + armAngle + "° with " + with_or_without + " :: ");
 
         // Camera
         sb.append("camera " + (cameraActive ? "on" : "off") + " :: ");
 
         // Temperature
-        sb.append("temperature " + (temperatureActive ? "" : "not ") + "fetched");
+        sb.append("temperature " + (temperatureActive ? "" : "not ") + "fetched \n\n");
         appStatus = sb.toString();
     }
 

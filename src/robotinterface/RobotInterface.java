@@ -3,7 +3,6 @@ package robotinterface;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
@@ -22,21 +21,7 @@ public class RobotInterface extends javax.swing.JFrame {
         initShortcuts();
     }
 
-    private void forceRefreshUI(State state) {
-        refreshUI(state);
-
-        left.setText(state.leftLabel);
-        right.setText(state.rightLabel);
-        up.setText(state.upLabel);
-        down.setText(state.downLabel);
-        fetchCamera.setText(state.cameraLabel);
-        fetchTemperature.setText(state.temperatureLabel);
-    }
-
     private void refreshUI(State state) {
-        int speed = state.speed;
-        int armAngle = state.armAngle;
-
         forward.setText(state.forwardLabel);
         forward.setEnabled(state.forwardActive);
         backward.setText(state.backwardLabel);
@@ -45,7 +30,7 @@ public class RobotInterface extends javax.swing.JFrame {
 
         speedBar.setMaximum(3);
         speedBar.setMinimum(0);
-        speedBar.setValue(Math.abs(speed));
+        speedBar.setValue(Math.abs(state.speed));
 
         up.setEnabled(state.upActive);
         down.setEnabled(state.downActive);
@@ -58,14 +43,14 @@ public class RobotInterface extends javax.swing.JFrame {
 
         fetchCamera.setText(state.cameraLabel);
         refreshUICamera(state.cameraActive);
-        statusLabel.setText(state.appStatus);
+        statusArea.append(state.appStatus);
     }
 
     private void refreshArmCanvas(int angle, ArmState armState) {
         Graphics2D g = (Graphics2D)armView.getGraphics();
         g.clearRect(0, 0, 10000, 10000);
 
-        int thickness = 3;
+        int thickness = 2;
         g.setStroke(new BasicStroke(thickness));
 
         int x1 = 85, y1 = 80;
@@ -112,7 +97,7 @@ public class RobotInterface extends javax.swing.JFrame {
             boxColor = new Color(0, 255, 41);
         }
 
-        int thickness = 5;
+        int thickness = 3;
         g.setStroke(new BasicStroke(thickness));
 
         Rectangle2D rect = new Rectangle2D.Double(29, 26, 20, 32);
@@ -254,7 +239,6 @@ public class RobotInterface extends javax.swing.JFrame {
                 fetchTemperatureMouseClicked(fakeEvent);
             }
         });
-
     }
 
 	/**
@@ -288,7 +272,8 @@ public class RobotInterface extends javax.swing.JFrame {
                 temperatureLabelFarentheit = new javax.swing.JLabel();
                 tempLabelCelsius = new javax.swing.JLabel();
                 tempLabelFarenheit = new javax.swing.JLabel();
-                statusLabel = new javax.swing.JLabel();
+                jScrollPane1 = new javax.swing.JScrollPane();
+                statusArea = new javax.swing.JTextArea();
 
                 jButton3.setText("jButton3");
 
@@ -520,6 +505,11 @@ public class RobotInterface extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
 
+                statusArea.setColumns(20);
+                statusArea.setLineWrap(true);
+                statusArea.setRows(5);
+                jScrollPane1.setViewportView(statusArea);
+
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
@@ -535,9 +525,7 @@ public class RobotInterface extends javax.swing.JFrame {
                                                         .addComponent(temperaturePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(armControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(jScrollPane1))
                                 .addContainerGap())
                 );
                 layout.setVerticalGroup(
@@ -552,7 +540,7 @@ public class RobotInterface extends javax.swing.JFrame {
                                         .addComponent(temperaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(cameraPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                                 .addContainerGap())
                 );
 
@@ -666,12 +654,13 @@ public class RobotInterface extends javax.swing.JFrame {
         private javax.swing.JButton forward;
         private javax.swing.JButton grabRelease;
         private javax.swing.JButton jButton3;
+        private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JButton left;
         private javax.swing.JPanel movementPanel;
         private javax.swing.JButton playPause;
         private javax.swing.JButton right;
         private javax.swing.JProgressBar speedBar;
-        private javax.swing.JLabel statusLabel;
+        private javax.swing.JTextArea statusArea;
         private javax.swing.JLabel tempLabelCelsius;
         private javax.swing.JLabel tempLabelFarenheit;
         private javax.swing.JLabel temperatureLabelCelsius;
