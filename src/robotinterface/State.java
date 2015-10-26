@@ -2,6 +2,7 @@ package robotinterface;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -19,6 +20,7 @@ public class State {
     final public String leftLabel;
     final public String rightLabel;
     public String playPauseLabel;
+    public int turnCount;
     public JProgressBar speedBar;
 
     final public String upLabel;
@@ -30,16 +32,14 @@ public class State {
     public String grabReleaseLabel;
 
     public boolean cameraActive;
-    final public String cameraLabel;
+    public String cameraLabel;
 
     public boolean temperatureActive;
     final public String temperatureLabel;
     public String temperatureCelsius;
     public String temperatureFarenheit;
     public String debuggerText;
-
-    public Canvas armCanvas;
-    public Canvas cameraCanvas;
+    public String appStatus;
 
     void updateState() {
         // Directions
@@ -110,6 +110,49 @@ public class State {
             upActive = true;
             downActive = true;
         }
+
+        // Camera label
+        if (cameraActive) {
+            cameraLabel = "Close Camera View";
+        } else {
+            cameraLabel = "Fetch Camera View";
+        }
+
+        refreshStatusBar();
+        logger();
+    }
+
+    private void refreshStatusBar() {
+        StringBuilder sb = new StringBuilder();
+
+        // Forward backward stationary
+        if (speed == 0) {
+            sb.append("Not moving :: ");
+        } else if (speed > 0) {
+            sb.append("Moving forward :: ");
+        } else if (speed < 0) {
+            sb.append("Moving backward :: ");
+        }
+
+        // Left right
+        if (turnCount == 0) {
+            sb.append("looking straight :: ");
+        } else if (turnCount > 0) {
+            sb.append("moving right " + turnCount*10 + "° :: ");
+        } else if (turnCount < 0) {
+            sb.append("moving left " + turnCount*10 + "° :: ");
+        }
+
+        // Arm
+        String with_or_without = grabReleaseState == ArmState.GRAB ? "something grabbed" : "nothing grabbed";
+        sb.append("arm angle " + armAngle + "° with " + with_or_without + " :: ");
+
+        // Camera
+        sb.append("camera " + (cameraActive ? "on" : "off") + " :: ");
+
+        // Temperature
+        sb.append("temperature " + (temperatureActive ? "" : "not ") + "fetched");
+        appStatus = sb.toString();
     }
 
     private void logger() {
@@ -130,6 +173,7 @@ public class State {
         rightLabel = "→";
         playPauseLabel = "▶";
         speedBar = new JProgressBar(0, 3);
+        turnCount = 0;
 
         upLabel = "⇞";
         downLabel = "⇟";
@@ -139,7 +183,6 @@ public class State {
 
         cameraActive = false;
         cameraLabel = "Fetch Camera View";
-        cameraCanvas = new CameraCanvas();
 
         temperatureActive = false;
         temperatureLabel = "Fetch Temperature";
@@ -153,5 +196,6 @@ public class State {
                 " * c for cameraLabel\n" +
                 " * t for temperatureLabel\n\n\n" +
                 "Waiting for command...\n";
+        appStatus = "";
     }
 }

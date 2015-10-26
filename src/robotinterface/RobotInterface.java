@@ -2,6 +2,10 @@ package robotinterface;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -45,15 +49,82 @@ public class RobotInterface extends javax.swing.JFrame {
 
         up.setEnabled(state.upActive);
         down.setEnabled(state.downActive);
-
         grabRelease.setText(state.grabReleaseLabel);
+        refreshArmCanvas(state.armAngle, state.grabReleaseState);
+        refreshCarCanvas(state);
 
         temperatureLabelCelsius.setText(state.temperatureCelsius);
         temperatureLabelFarentheit.setText(state.temperatureFarenheit);
 
-        armCanvas = state.armCanvas;
+        fetchCamera.setText(state.cameraLabel);
+        refreshUICamera(state.cameraActive);
+        statusLabel.setText(state.appStatus);
+    }
 
-        if (state.cameraActive) {
+    private void refreshArmCanvas(int angle, ArmState armState) {
+        Graphics2D g = (Graphics2D)armView.getGraphics();
+        g.clearRect(0, 0, 10000, 10000);
+
+        int thickness = 3;
+        g.setStroke(new BasicStroke(thickness));
+
+        int x1 = 85, y1 = 80;
+        int x2 = 149, y2 = 80;
+        int length = x2 - x1;
+
+        // 4th quadrant math
+        int x3 = x1 + (int)(Math.cos(Math.toRadians(angle)) * length);
+        int y3 = y1 - (int)(Math.sin(Math.toRadians(angle)) * length);
+
+        // Tilting algorithm for the angle
+        if(armState == ArmState.GRAB) {
+            g.setColor(Color.BLACK);
+            g.drawLine(x1, y1, x2, y2);
+            g.drawLine(x1, y1, x3, y3);
+            g.fillOval(x3 - 3, y3 - 3, 6, 6);
+        } else {
+            g.setColor(Color.RED);
+            g.drawLine(x1, y1, x2, y2);
+            g.drawLine(x1, y1, x3, y3);
+            g.fillOval(x3 - 3, y3 - 3, 6, 6);
+        }
+
+        // Reset color
+        g.setColor(Color.BLACK);
+    }
+
+    private void refreshCarCanvas(State state) {
+        Graphics2D g = (Graphics2D)armView.getGraphics();
+        Color boxColor = Color.gray;
+        if (state.speed == 0) {
+            boxColor = Color.gray;
+        } else if (state.speed == -1) {
+            boxColor = new Color(255, 174, 169);
+        } else if (state.speed == -2) {
+            boxColor = new Color(255, 97, 93);
+        } else if (state.speed == -3) {
+            boxColor = new Color(255, 0, 0);
+        } else if (state.speed == 1) {
+            boxColor = new Color(138, 255, 146);
+        } else if (state.speed == 2) {
+            boxColor = new Color(51, 255, 87);
+        } else if (state.speed == 3) {
+            boxColor = new Color(0, 255, 41);
+        }
+
+        int thickness = 5;
+        g.setStroke(new BasicStroke(thickness));
+
+        Rectangle2D rect = new Rectangle2D.Double(29, 26, 20, 32);
+        g.setPaint(boxColor);
+        AffineTransform at = AffineTransform.getRotateInstance(Math.toRadians(10 * state.turnCount), 39, 42);
+        Path2D rotatedRect = (Path2D)(at.createTransformedShape(rect));
+
+        g.draw(rotatedRect);
+    }
+
+    private void refreshUICamera(boolean show) {
+        if (show) {
             Image img = null;
             try {
                 img = ImageIO.read(new File("robotinterface/cat.jpg"));
@@ -61,6 +132,8 @@ public class RobotInterface extends javax.swing.JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            cameraCanvas.getGraphics().clearRect(0, 0, 10000, 10000);
         }
     }
 
@@ -205,7 +278,7 @@ public class RobotInterface extends javax.swing.JFrame {
                 up = new javax.swing.JButton();
                 down = new javax.swing.JButton();
                 grabRelease = new javax.swing.JButton();
-                armCanvas = new java.awt.Canvas();
+                armView = new javax.swing.JPanel();
                 cameraPanel = new javax.swing.JPanel();
                 fetchCamera = new javax.swing.JButton();
                 cameraCanvas = new java.awt.Canvas();
@@ -215,10 +288,7 @@ public class RobotInterface extends javax.swing.JFrame {
                 temperatureLabelFarentheit = new javax.swing.JLabel();
                 tempLabelCelsius = new javax.swing.JLabel();
                 tempLabelFarenheit = new javax.swing.JLabel();
-                debuggingConsolePanel = new javax.swing.JPanel();
-                jScrollPane1 = new javax.swing.JScrollPane();
-                debugger = new javax.swing.JTextArea();
-                statusBar = new javax.swing.JPanel();
+                statusLabel = new javax.swing.JLabel();
 
                 jButton3.setText("jButton3");
 
@@ -322,7 +392,18 @@ public class RobotInterface extends javax.swing.JFrame {
                         }
                 });
 
-                armCanvas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+                armView.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+                javax.swing.GroupLayout armViewLayout = new javax.swing.GroupLayout(armView);
+                armView.setLayout(armViewLayout);
+                armViewLayout.setHorizontalGroup(
+                        armViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                );
+                armViewLayout.setVerticalGroup(
+                        armViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 94, Short.MAX_VALUE)
+                );
 
                 javax.swing.GroupLayout armControlPanelLayout = new javax.swing.GroupLayout(armControlPanel);
                 armControlPanel.setLayout(armControlPanelLayout);
@@ -330,14 +411,15 @@ public class RobotInterface extends javax.swing.JFrame {
                         armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(armControlPanelLayout.createSequentialGroup()
                                 .addGroup(armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(armCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(armControlPanelLayout.createSequentialGroup()
-                                                .addGroup(armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(down, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(up))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(grabRelease)))
+                                        .addComponent(down, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(up))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(grabRelease)
                                 .addGap(0, 5, Short.MAX_VALUE))
+                        .addGroup(armControlPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(armView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
                 );
                 armControlPanelLayout.setVerticalGroup(
                         armControlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,8 +430,8 @@ public class RobotInterface extends javax.swing.JFrame {
                                                 .addComponent(up, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(down, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(armCanvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(armView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
                 );
 
@@ -438,50 +520,12 @@ public class RobotInterface extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
 
-                debuggingConsolePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Debugging Console"));
-
-                debugger.setEditable(false);
-                debugger.setColumns(20);
-                debugger.setRows(1);
-                debugger.setTabSize(4);
-                jScrollPane1.setViewportView(debugger);
-
-                javax.swing.GroupLayout debuggingConsolePanelLayout = new javax.swing.GroupLayout(debuggingConsolePanel);
-                debuggingConsolePanel.setLayout(debuggingConsolePanelLayout);
-                debuggingConsolePanelLayout.setHorizontalGroup(
-                        debuggingConsolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(debuggingConsolePanelLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                                .addContainerGap())
-                );
-                debuggingConsolePanelLayout.setVerticalGroup(
-                        debuggingConsolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(debuggingConsolePanelLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1)
-                                .addContainerGap())
-                );
-
-                statusBar.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-                javax.swing.GroupLayout statusBarLayout = new javax.swing.GroupLayout(statusBar);
-                statusBar.setLayout(statusBarLayout);
-                statusBarLayout.setHorizontalGroup(
-                        statusBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                );
-                statusBarLayout.setVerticalGroup(
-                        statusBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 32, Short.MAX_VALUE)
-                );
-
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
                         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(statusBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                         .addComponent(movementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -490,8 +534,10 @@ public class RobotInterface extends javax.swing.JFrame {
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(temperaturePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                         .addComponent(armControlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(debuggingConsolePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap()
+                                                .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addContainerGap())
                 );
                 layout.setVerticalGroup(
@@ -499,18 +545,15 @@ public class RobotInterface extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(debuggingConsolePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(movementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(armControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(temperaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(cameraPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addComponent(movementPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(armControlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(statusBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(temperaturePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cameraPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                                .addContainerGap())
                 );
 
                 pack();
@@ -565,7 +608,7 @@ public class RobotInterface extends javax.swing.JFrame {
         }//GEN-LAST:event_grabReleaseMouseClicked
 
         private void fetchCameraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fetchCameraMouseClicked
-            State state = controller.getCamera();
+            State state = controller.toggleCamera();
             refreshUI(state);
             System.out.println("Fetching cameraLabel stream");
         }//GEN-LAST:event_fetchCameraMouseClicked
@@ -583,7 +626,7 @@ public class RobotInterface extends javax.swing.JFrame {
 		/* Set the Basic look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Basic (introduced in Java SE 6) is not available, stay with the default look and feel.
-		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+		 * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 		 */
 		try {
 			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -612,26 +655,23 @@ public class RobotInterface extends javax.swing.JFrame {
 	}
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
-        private java.awt.Canvas armCanvas;
         private javax.swing.JPanel armControlPanel;
+        private javax.swing.JPanel armView;
         private javax.swing.JButton backward;
         private java.awt.Canvas cameraCanvas;
         private javax.swing.JPanel cameraPanel;
-        private javax.swing.JTextArea debugger;
-        private javax.swing.JPanel debuggingConsolePanel;
         private javax.swing.JButton down;
         private javax.swing.JButton fetchCamera;
         private javax.swing.JButton fetchTemperature;
         private javax.swing.JButton forward;
         private javax.swing.JButton grabRelease;
         private javax.swing.JButton jButton3;
-        private javax.swing.JScrollPane jScrollPane1;
         private javax.swing.JButton left;
         private javax.swing.JPanel movementPanel;
         private javax.swing.JButton playPause;
         private javax.swing.JButton right;
         private javax.swing.JProgressBar speedBar;
-        private javax.swing.JPanel statusBar;
+        private javax.swing.JLabel statusLabel;
         private javax.swing.JLabel tempLabelCelsius;
         private javax.swing.JLabel tempLabelFarenheit;
         private javax.swing.JLabel temperatureLabelCelsius;

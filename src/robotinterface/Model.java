@@ -14,7 +14,7 @@ public interface Model {
     State moveArmDown();
     State grabReleaseArm();
 
-    State fetchCamera();
+    State toggleCamera();
 
     State fetchTemperature();
 }

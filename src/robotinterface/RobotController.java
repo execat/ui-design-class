@@ -62,8 +62,8 @@ public class RobotController implements Controller {
     }
 
     @Override
-    public State getCamera() {
-        model.fetchCamera();
+    public State toggleCamera() {
+        model.toggleCamera();
         return getState();
     }
 

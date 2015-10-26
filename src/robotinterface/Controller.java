@@ -17,7 +17,7 @@ public interface Controller {
     State moveArmDown();
     State grabReleaseArm();
 
-    State getCamera();
+    State toggleCamera();
 
     State getTemperature();
 

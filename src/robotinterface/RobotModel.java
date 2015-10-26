@@ -30,11 +30,17 @@ public class RobotModel implements Model {
 
     @Override
     public State moveRobotLeft() {
+        if (state.turnCount > -9) {
+            state.turnCount -= 1;
+        }
         return getState();
     }
 
     @Override
     public State moveRobotRight() {
+        if (state.turnCount < 9) {
+            state.turnCount += 1;
+        }
         return getState();
     }
 
@@ -45,6 +51,7 @@ public class RobotModel implements Model {
         } else {
             state.speed = 0;
         }
+        state.turnCount = 0;
         return getState();
     }
 
@@ -73,16 +80,17 @@ public class RobotModel implements Model {
     }
 
     @Override
-    public State fetchCamera() {
-        state.cameraActive = true;
+    public State toggleCamera() {
+        state.cameraActive = state.cameraActive == false;
         return getState();
     }
 
     @Override
     public State fetchTemperature() {
         state.temperatureActive = true;
-        int temperatureCelsius = 100;
-        int temperatureFarenheit = 220;
+        int temperature = 15 + (int)(Math.random() * 5); // Range of 30
+        int temperatureCelsius = temperature;
+        int temperatureFarenheit = (temperature * 9 / 5) + 32 ;
         state.temperatureCelsius = Integer.toString(temperatureCelsius);
         state.temperatureFarenheit = Integer.toString(temperatureFarenheit);
         return getState();
