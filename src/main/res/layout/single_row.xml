@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:padding="10sp" >
+
+    <ImageView
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:src="@drawable/phone"
+        android:id="@+id/imageView"
+        />
+
+    <TextView
+        android:paddingLeft="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Hello World"
+        android:id="@+id/textView"
+        android:textSize="@android:dimen/app_icon_size" />
+</LinearLayout>

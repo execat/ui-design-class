@@ -6,7 +6,11 @@ import java.util.ArrayList;
  * Created by atm on 11/2/15.
  */
 public class ContactController {
-    static FlatFileContactDAO dao = new FlatFileContactDAO();
+    static FlatFileContactDAO dao;
+
+    ContactController() {
+        dao = new FlatFileContactDAO();
+    }
 
     public static Contact save(Contact contact) {
         return dao.addContact(contact);

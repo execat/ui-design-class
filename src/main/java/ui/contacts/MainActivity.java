@@ -7,6 +7,8 @@ import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 
+    ContactController controller = new ContactController();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
