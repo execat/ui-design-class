@@ -10,8 +10,8 @@ public class Contact {
     private String phoneNumber;
     private String emailAddress;
 
-    private String frequency; // Implement this to see which contact gets opened most frequently
-    private long timestampCreated; // Implement this to sort by latest added
+    private String frequency;           // Implement this to see which contact gets opened most frequently
+    private long timestampCreated;      // Implement this to sort by latest added
 
     /**
      * Constructors
@@ -34,6 +34,7 @@ public class Contact {
 
         if(!firstName.isEmpty()) {
             sb.append(firstName);
+            sb.append(" ");
         }
 
         if(!lastName.isEmpty()) {
@@ -46,8 +47,8 @@ public class Contact {
     @Override
     public String toString() {
         final String separator = "::";
-        return (firstName + separator + lastName + separator +
-                phoneNumber + separator + emailAddress + "\n");
+        return (firstName + separator + lastName + separator + phoneNumber + separator +
+                emailAddress + separator + frequency + separator + timestampCreated);
     }
 
     /**

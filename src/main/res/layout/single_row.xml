@@ -14,7 +14,8 @@
         android:paddingLeft="20sp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Hello World"
+        android:text="Anuj More"
         android:id="@+id/textView"
-        android:textSize="@android:dimen/app_icon_size" />
+        android:textSize="@dimen/list_view_height"
+        android:textAlignment="gravity" />
 </LinearLayout>

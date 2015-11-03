@@ -4,15 +4,35 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    ContactController controller = new ContactController();
+    ContactController controller;
+    ArrayList<Contact> data;
+    ArrayList<String> stringData;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        controller = new ContactController();
+        data = controller.fetchAll();
+        stringData = new ArrayList<String>();
+        for (Contact row : data) {
+            stringData.add(row.getFullName());
+        }
+
+        listView = (ListView) findViewById(R.id.listView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, R.layout.single_row, R.id.textView, stringData
+        );
+        listView.setAdapter(adapter);
     }
 
     @Override

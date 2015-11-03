@@ -1,6 +1,8 @@
 // https://github.com/execat/ui-design-class/blob/master/ui-design2/FlatFilePersonDAO.java
 package ui.contacts;
 
+import android.os.Environment;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,23 +49,20 @@ public class FlatFileContactDAO implements ContactDAO {
         data = new ArrayList<Contact>();
 
         // Assures data file is created
-        String dataBasePath = "src/main/java/ui/contacts/";
-        String dataFileName = "data.txt";
-        String dataPath = dataBasePath + dataFileName;
-        dataFile = new File(dataPath);
-        assureFileExists(dataPath);
+        String dataPath = "/ui/contacts/data.txt";
+        dataFile = new File(Environment.getExternalStorageDirectory(), dataPath);
+        assureFileExists(dataFile);
 
         // Assures backup file is created
-        String backupBasePath = "src/main/java/ui/contacts/";
-        String backupFileName = "backup.txt";
-        String backupPath = backupBasePath + backupFileName;
-        backupFile = new File(backupPath);
-        assureFileExists(backupPath);
+        String backupPath = "/ui/contacts/backup.txt";
+        backupFile = new File(Environment.getExternalStorageDirectory(), backupPath);
+        assureFileExists(backupFile);
 
         data = prefetch();
 
         try {
-            reader = new FileReader(dataPath);
+            String path = Environment.getExternalStorageDirectory() + dataPath;
+            reader = new FileReader(path);
         } catch(FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -100,6 +99,7 @@ public class FlatFileContactDAO implements ContactDAO {
             return new ArrayList<Contact>();
         }
 
+        System.out.println("--------------------------> Prefetch " + all);
         return all;
     }
 
@@ -132,12 +132,11 @@ public class FlatFileContactDAO implements ContactDAO {
      * Assures that a file with a given path exists
      * Creates an empty file if the path does not exist
      *
-     * @param path
      * @return
      */
-    private boolean assureFileExists(String path) {
-        if(!dataFile.exists()) {
-            return createFile(dataFile);
+    private boolean assureFileExists(File f) {
+        if(!f.exists()) {
+            return createFile(f);
         }
         return true;
     }
@@ -153,8 +152,10 @@ public class FlatFileContactDAO implements ContactDAO {
 
     private boolean createFile(File file) {
         try {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
+            if(!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
         } catch (Exception e) {
             System.out.println("Something went wrong while trying to create the file: " + file.getPath());
             return false;
