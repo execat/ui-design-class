@@ -60,7 +60,7 @@ public class FlatFileContactDAO implements ContactDAO {
         backupFile = new File(backupPath);
         assureFileExists(backupPath);
 
-        data = fetchAll();
+        data = prefetch();
 
         try {
             reader = new FileReader(dataPath);
@@ -85,14 +85,7 @@ public class FlatFileContactDAO implements ContactDAO {
         reader = null;
     }
 
-    /**
-     * fetchAll
-     *
-     * Fetches all the records from the datafile and returns an ArrayList of Contacts
-     * @return
-     */
-
-    public ArrayList<Contact> fetchAll() {
+    public ArrayList<Contact> prefetch() {
         ArrayList<Contact> all = new ArrayList<Contact>();
         try (BufferedReader br = new BufferedReader(new FileReader(dataFile))) {
             String line;
@@ -108,10 +101,17 @@ public class FlatFileContactDAO implements ContactDAO {
         }
 
         return all;
+    }
 
-        /*
-        Try returning just data
-         */
+    /**
+     * fetchAll
+     *
+     * Fetches all the records from the datafile and returns an ArrayList of Contacts
+     * @return
+     */
+
+    public ArrayList<Contact> fetchAll() {
+        return data;
     }
 
     /**
