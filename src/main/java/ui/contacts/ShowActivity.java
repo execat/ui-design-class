@@ -48,13 +48,18 @@ public class ShowActivity extends Activity {
                     int number = extras.getInt("NUMBER");
                     Contact current = new Contact(firstName.getText().toString(), lastName.getText().toString(),
                             phone.getText().toString(), email.getText().toString());
-                    controller.updateContactAt(number, current);
+                    if (!firstName.getText().toString().isEmpty()) {
+                        controller.updateContactAt(number, current);
+                        finish();
+                    }
                 } else if (extras.getString("NEW_OR_EDIT").equals("new")) {
                     Contact current = new Contact(firstName.getText().toString(), lastName.getText().toString(),
                             phone.getText().toString(), email.getText().toString());
-                    controller.addContact(current);
+                    if (!firstName.getText().toString().isEmpty()) {
+                        controller.addContact(current);
+                        finish();
+                    }
                 }
-                finish();
             }
         });
 
@@ -69,6 +74,7 @@ public class ShowActivity extends Activity {
                 if (extras.getString("NEW_OR_EDIT").equals("edit")) {
                     int number = extras.getInt("NUMBER");
                     controller.delete(number);
+                    finish();
                 } else if (extras.getString("NEW_OR_EDIT").equals("new")) {
                 }
             }
