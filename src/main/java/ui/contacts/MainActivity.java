@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
 
     ContactController controller;
     ArrayList<Contact> data;
-    ArrayList<String> stringData;
+    ArrayList<ListViewItem> listViewItems;
     ListView listView;
 
     @Override
@@ -25,16 +25,15 @@ public class MainActivity extends Activity {
 
         controller = new ContactController();
         data = controller.fetchAll();
-        stringData = new ArrayList<String>();
+        listViewItems = new ArrayList<ListViewItem>();
         for (Contact row : data) {
-            stringData.add(row.getFullName());
+            listViewItems.add(new ListViewItem(row.getFullName(), row.getPhoneNumber()));
         }
 
         listView = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this, R.layout.single_row, R.id.textView, stringData
-        );
+        CustomAdapter adapter = new CustomAdapter(this, listViewItems);
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
@@ -44,12 +43,6 @@ public class MainActivity extends Activity {
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        this.onCreate(null);
     }
 
     @Override
