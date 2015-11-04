@@ -1,7 +1,12 @@
 package ui.contacts;
 
 /**
+ * Class Contact:
+ *
  * The model of the contact resource
+ * Contains constructor
+ * Contains getFullName
+ * Contains getters
  */
 public class Contact {
 
@@ -29,6 +34,14 @@ public class Contact {
         this.timestampCreated = System.currentTimeMillis() / 1000L;
     }
 
+    /**
+     * getFullName
+     *
+     * For firstName "Anuj", lastName "More", returns "Anuj More"
+     *
+     * @return
+     */
+
     public String getFullName() {
         StringBuilder sb = new StringBuilder();
 
@@ -44,6 +57,13 @@ public class Contact {
         return sb.toString();
     }
 
+    /**
+     * toString
+     *
+     * Returns the notation to be written to the file
+     *
+     * @return
+     */
     @Override
     public String toString() {
         final String separator = "::";
@@ -53,34 +73,24 @@ public class Contact {
 
     /**
      * Setters
+     *
+     * setFrequency()
      */
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 
     public void setFrequency(String frequency) {
         this.frequency = frequency;
     }
 
-    public void setTimestampCreated(long timestampCreated) {
-        this.timestampCreated = timestampCreated;
-    }
-
     /**
      * Getters
+     *
+     * getFirstName()
+     * getLastName()
+     * getPhoneNumber()
+     * getEmailAddress()
+     * getFrequency()
+     * getTimestampCreated()
+     *
      */
 
     public String getFirstName() {

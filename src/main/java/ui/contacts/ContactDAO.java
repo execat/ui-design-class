@@ -1,6 +1,8 @@
 package ui.contacts;
 
 /**
+ * Interface ContactDAO:
+ *
  * Defines contact specific methods to modify the disk
  */
 public interface ContactDAO extends DAO {

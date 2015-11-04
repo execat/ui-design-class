@@ -8,6 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+/**
+ * Class ShowActivity:
+ *
+ * This activity defines the show page
+ */
+
 public class ShowActivity extends Activity {
     Contact current;
     Bundle extras;
@@ -18,11 +24,13 @@ public class ShowActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
 
+        // Store references to the fields
         final EditText firstName = (EditText) findViewById(R.id.firstNameText);
         final EditText lastName = (EditText) findViewById(R.id.lastNameText);
         final EditText phone = (EditText) findViewById(R.id.phoneText);
         final EditText email = (EditText) findViewById(R.id.emailText);
 
+        // Store references to the buttons
         Button save = (Button) findViewById(R.id.saveButton);
         Button cancel = (Button) findViewById(R.id.cancelButton);
         Button delete = (Button) findViewById(R.id.deleteButton);
@@ -48,9 +56,12 @@ public class ShowActivity extends Activity {
                     int number = extras.getInt("NUMBER");
                     Contact current = new Contact(firstName.getText().toString(), lastName.getText().toString(),
                             phone.getText().toString(), email.getText().toString());
+                    // If the first name is not empty (Validation)
                     if (!firstName.getText().toString().isEmpty()) {
                         controller.updateContactAt(number, current);
                         finish();
+                    } else {
+                        firstName.setError("This field cannot be blank");
                     }
                 } else if (extras.getString("NEW_OR_EDIT").equals("new")) {
                     Contact current = new Contact(firstName.getText().toString(), lastName.getText().toString(),

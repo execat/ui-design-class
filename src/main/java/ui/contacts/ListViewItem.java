@@ -1,7 +1,9 @@
 package ui.contacts;
 
 /**
- * Created by atm on 11/4/15.
+ * ClassListViewItem:
+ *
+ * This class represents a list view item encapsulating the full name and the phone number
  */
 public class ListViewItem {
     String name;

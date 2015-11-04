@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
- * Created by atm on 11/4/15.
+ * Class CustomAdapter:
+ *
+ * This class defines a custom adapter to hold the full name and number with the icon
  */
 public class CustomAdapter extends BaseAdapter {
     private LayoutInflater inflater;
