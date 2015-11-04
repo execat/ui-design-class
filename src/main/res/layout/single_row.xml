@@ -10,7 +10,7 @@
         <ImageView
             android:layout_width="50sp"
             android:layout_height="50sp"
-            android:src="@drawable/phone"
+            android:src="@mipmap/list_icon"
             android:id="@+id/imageView"
             android:layout_rowSpan="2" />
 
