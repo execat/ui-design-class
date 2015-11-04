@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Show"
+            android:name=".ShowActivity"
             android:label="@string/title_activity_show" >
         </activity>
     </application>

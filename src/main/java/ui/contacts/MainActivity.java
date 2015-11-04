@@ -38,10 +38,18 @@ public class MainActivity extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                Intent appInfo = new Intent(view.getContext(), Show.class);
-                startActivity(appInfo);
+                Intent intent = new Intent(view.getContext(), ShowActivity.class);
+                intent.putExtra("NEW_OR_EDIT", "edit");
+                intent.putExtra("NUMBER", position);
+                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.onCreate(null);
     }
 
     @Override
@@ -58,7 +66,8 @@ public class MainActivity extends Activity {
                 return true;
 
             case R.id.action_add:
-                Intent intent = new Intent(this, Show.class);
+                Intent intent = new Intent(this, ShowActivity.class);
+                intent.putExtra("NEW_OR_EDIT", "new");
                 this.startActivity(intent);
                 return true;
 

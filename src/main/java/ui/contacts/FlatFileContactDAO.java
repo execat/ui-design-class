@@ -124,6 +124,12 @@ public class FlatFileContactDAO implements ContactDAO, Comparator<Contact> {
     }
 
 
+    /**
+     * sort
+     *
+     * Sorts the data list by first name
+     * @return
+     */
     private ArrayList<Contact> sort() {
         Collections.sort(data, new Comparator<Contact>() {
             public int compare(Contact lhs, Contact rhs) {
@@ -142,7 +148,7 @@ public class FlatFileContactDAO implements ContactDAO, Comparator<Contact> {
      * @return
      */
     public Contact fetch(int index) {
-        return data.get(index);
+        return sort().get(index);
     }
 
     /**
@@ -195,6 +201,7 @@ public class FlatFileContactDAO implements ContactDAO, Comparator<Contact> {
      */
     private boolean writeToFile(ArrayList<Contact> contacts, File file) {
         System.out.println("CALLING WRITE TO FILE: \n\n" + contacts);
+        sort();
         createFile(file);
 
         FileWriter fw;

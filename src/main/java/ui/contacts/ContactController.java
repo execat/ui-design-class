@@ -12,8 +12,12 @@ public class ContactController {
         dao = new FlatFileContactDAO();
     }
 
-    public static Contact save(Contact contact) {
+    public static Contact addContact(Contact contact) {
         return dao.addContact(contact);
+    }
+
+    public static Contact updateContactAt(int i, Contact contact) {
+        return dao.updateContactAt(i, contact);
     }
 
     public static ArrayList<Contact> fetchAll() {
