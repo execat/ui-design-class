@@ -11,11 +11,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Disk access object class for writing contacts to flat file
  */
-public class FlatFileContactDAO implements ContactDAO {
+public class FlatFileContactDAO implements ContactDAO, Comparator<Contact> {
     // To read the data file
     private Reader reader;
 
@@ -84,6 +86,13 @@ public class FlatFileContactDAO implements ContactDAO {
         reader = null;
     }
 
+    /**
+     * prefetch
+     *
+     * Does the initial fetch operation
+     *
+     * @return
+     */
     public ArrayList<Contact> prefetch() {
         ArrayList<Contact> all = new ArrayList<Contact>();
         try (BufferedReader br = new BufferedReader(new FileReader(dataFile))) {
@@ -111,6 +120,16 @@ public class FlatFileContactDAO implements ContactDAO {
      */
 
     public ArrayList<Contact> fetchAll() {
+        return sort();
+    }
+
+
+    private ArrayList<Contact> sort() {
+        Collections.sort(data, new Comparator<Contact>() {
+            public int compare(Contact lhs, Contact rhs) {
+                return lhs.getFirstName().compareTo(rhs.getFirstName());
+            }
+        });
         return data;
     }
 
@@ -308,5 +327,10 @@ public class FlatFileContactDAO implements ContactDAO {
         writeToFile(data, dataFile);
         return contact;
          */
+    }
+
+    @Override
+    public int compare(Contact lhs, Contact rhs) {
+        return lhs.getFirstName().compareTo(rhs.getFirstName());
     }
 }
