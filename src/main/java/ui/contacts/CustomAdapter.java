@@ -16,14 +16,16 @@ import java.util.ArrayList;
 public class CustomAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ArrayList<ListViewItem> items;
+    private boolean listNotEmpty;
     private class ViewHolder {
         TextView textView1;
         TextView textView2;
     }
 
-    public CustomAdapter(Context context, ArrayList<ListViewItem> items) {
+    public CustomAdapter(Context context, ArrayList<ListViewItem> items, boolean listNotEmpty) {
         inflater = LayoutInflater.from(context);
         this.items = items;
+        this.listNotEmpty = listNotEmpty;
     }
 
     @Override
@@ -57,5 +59,11 @@ public class CustomAdapter extends BaseAdapter {
         holder.textView1.setText(items.get(position).getName());
         holder.textView2.setText(items.get(position).getPhone());
         return convertView;
+    }
+
+    // Disable clicking on the notice that displays for "Add a new item"
+    @Override
+    public boolean isEnabled(int position) {
+        return listNotEmpty;
     }
 }

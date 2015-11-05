@@ -52,17 +52,16 @@ public class ShowActivity extends Activity {
 
         save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (extras.getString("NEW_OR_EDIT").equals("edit")) {
+                // Validate empty first name string
+                if (firstName.getText().toString().isEmpty()) {
+                    firstName.setError("This field cannot be blank");
+                } else if (extras.getString("NEW_OR_EDIT").equals("edit")) {
                     int number = extras.getInt("NUMBER");
                     Contact current = new Contact(firstName.getText().toString(), lastName.getText().toString(),
                             phone.getText().toString(), email.getText().toString());
                     // If the first name is not empty (Validation)
-                    if (!firstName.getText().toString().isEmpty()) {
-                        controller.updateContactAt(number, current);
-                        finish();
-                    } else {
-                        firstName.setError("This field cannot be blank");
-                    }
+                    controller.updateContactAt(number, current);
+                    finish();
                 } else if (extras.getString("NEW_OR_EDIT").equals("new")) {
                     Contact current = new Contact(firstName.getText().toString(), lastName.getText().toString(),
                             phone.getText().toString(), email.getText().toString());

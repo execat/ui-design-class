@@ -38,16 +38,16 @@ public class MainActivity extends Activity {
             listViewItems.add(new ListViewItem(row.getFullName(), row.getPhoneNumber()));
         }
 
-        if (listViewItems.isEmpty()) {
+        boolean listEmpty = listViewItems.isEmpty();
+        if (listEmpty) {
             listViewItems.add(new ListViewItem("Add a new item", "By clicking on the '+' icon above"));
-            listView = (ListView) findViewById(R.id.listView);
-            CustomAdapter adapter = new CustomAdapter(this, listViewItems);
-            listView.setAdapter(adapter);
-        } else {
-            listView = (ListView) findViewById(R.id.listView);
-            CustomAdapter adapter = new CustomAdapter(this, listViewItems);
-            listView.setAdapter(adapter);
+        }
 
+        listView = (ListView) findViewById(R.id.listView);
+        CustomAdapter adapter = new CustomAdapter(this, listViewItems, !listEmpty);
+        listView.setAdapter(adapter);
+
+        if (!listEmpty) {
             // Set click event on the list view
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
