@@ -26,6 +26,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         controller = new ContactController();
         data = controller.fetchAll();
         listViewItems = new ArrayList<ListViewItem>();
@@ -60,9 +65,6 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                return true;
-
             case R.id.action_add:
                 Intent intent = new Intent(this, ShowActivity.class);
                 // Assign extra information about the click (edit contact or new contact)
