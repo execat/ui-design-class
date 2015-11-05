@@ -25,12 +25,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         controller = new ContactController();
         data = controller.fetchAll();
         listViewItems = new ArrayList<ListViewItem>();
@@ -38,21 +38,28 @@ public class MainActivity extends Activity {
             listViewItems.add(new ListViewItem(row.getFullName(), row.getPhoneNumber()));
         }
 
-        listView = (ListView) findViewById(R.id.listView);
-        CustomAdapter adapter = new CustomAdapter(this, listViewItems);
-        listView.setAdapter(adapter);
+        if (listViewItems.isEmpty()) {
+            listViewItems.add(new ListViewItem("Add a new item", "By clicking on the '+' icon above"));
+            listView = (ListView) findViewById(R.id.listView);
+            CustomAdapter adapter = new CustomAdapter(this, listViewItems);
+            listView.setAdapter(adapter);
+        } else {
+            listView = (ListView) findViewById(R.id.listView);
+            CustomAdapter adapter = new CustomAdapter(this, listViewItems);
+            listView.setAdapter(adapter);
 
-        // Set click event on the list view
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
-                Intent intent = new Intent(view.getContext(), ShowActivity.class);
-                // Assign extra information about the click (edit contact or new contact)
-                intent.putExtra("NEW_OR_EDIT", "edit");
-                intent.putExtra("NUMBER", position);
-                startActivity(intent);
-            }
-        });
+            // Set click event on the list view
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapter, View view, int position, long arg) {
+                    Intent intent = new Intent(view.getContext(), ShowActivity.class);
+                    // Assign extra information about the click (edit contact or new contact)
+                    intent.putExtra("NEW_OR_EDIT", "edit");
+                    intent.putExtra("NUMBER", position);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
