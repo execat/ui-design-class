@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * Class MainActivity:
  *
  * This activity populates and shows the screen on starting a fresh instance of the app
+ *
+ * author: Anuj More (atm140330)
  */
 public class MainActivity extends Activity {
     ContactController controller;

@@ -12,6 +12,8 @@ import android.widget.EditText;
  * Class ShowActivity:
  *
  * This activity defines the show page
+ *
+ * author: Anuj More (atm140330)
  */
 
 public class ShowActivity extends Activity {

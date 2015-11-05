@@ -4,6 +4,8 @@ package ui.contacts;
  * Interface ContactDAO:
  *
  * Defines contact specific methods to modify the disk
+ *
+ * author: Anuj More (atm140330)
  */
 public interface ContactDAO extends DAO {
     Contact addContact(Contact contact);

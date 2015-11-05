@@ -19,6 +19,8 @@ import java.util.Comparator;
  *
  * Disk access object class for writing contacts to flat file
  * This is where all the writing, reading, and updating of records happens.
+ *
+ * author: Anuj More (atm140330)
  */
 public class FlatFileContactDAO implements ContactDAO, Comparator<Contact> {
     // To read the data file

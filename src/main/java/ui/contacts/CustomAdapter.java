@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * Class CustomAdapter:
  *
  * This class defines a custom adapter to hold the full name and number with the icon
+ *
+ * author: Anuj More (atm140330)
  */
 public class CustomAdapter extends BaseAdapter {
     private LayoutInflater inflater;

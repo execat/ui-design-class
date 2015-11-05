@@ -7,6 +7,8 @@ package ui.contacts;
  * Contains constructor
  * Contains getFullName
  * Contains getters
+ *
+ * author: Anuj More (atm140330)
  */
 public class Contact {
 

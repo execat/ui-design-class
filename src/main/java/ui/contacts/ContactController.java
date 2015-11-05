@@ -6,6 +6,8 @@ import java.util.ArrayList;
  * Class ContactController:
  *
  * Controls requests coming from the UI layer and passes them to the disk access objects
+ *
+ * author: Anuj More (atm140330)
  */
 public class ContactController {
     static FlatFileContactDAO dao;
